@@ -18,7 +18,9 @@ const ViewInstitutes = () => {
   useEffect(() => {
     // Fetch organization data from localStorage
     const organizationsData = localStorage.getItem("organizations");
-    const organizations = organizationsData ? JSON.parse(organizationsData) : [];
+    const organizations = organizationsData
+      ? JSON.parse(organizationsData)
+      : [];
     const org = organizations.find((o) => o.id === parseInt(id));
     if (org) {
       setOrganization(org);
@@ -138,20 +140,39 @@ const ViewInstitutes = () => {
                     <th className="px-6 py-4 text-left font-semibold">Name</th>
                     <th className="px-6 py-4 text-left font-semibold">Type</th>
                     <th className="px-6 py-4 text-left font-semibold">Email</th>
-                    <th className="px-6 py-4 text-left font-semibold">Location</th>
-                    <th className="px-6 py-4 text-left font-semibold">Status</th>
-                    <th className="px-6 py-4 text-left font-semibold">Actions</th>
+                    <th className="px-6 py-4 text-left font-semibold">
+                      Location
+                    </th>
+                    <th className="px-6 py-4 text-left font-semibold">
+                      Status
+                    </th>
+                    <th className="px-6 py-4 text-left font-semibold">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {institutes.length > 0 ? (
                     institutes.map((institute) => (
-                      <tr key={institute.id} className="border-b hover:bg-gray-50">
-                        <td className="px-6 py-4 text-gray-800">{institute.name}</td>
-                        <td className="px-6 py-4 text-gray-600">{institute.type}</td>
-                        <td className="px-6 py-4 text-gray-600">{institute.email}</td>
-                        <td className="px-6 py-4 text-gray-600">{institute.location}</td>
-                        <td className="px-6 py-4 text-gray-600">{institute.status}</td>
+                      <tr
+                        key={institute.id}
+                        className="border-b hover:bg-gray-50"
+                      >
+                        <td className="px-6 py-4 text-gray-800">
+                          {institute.name}
+                        </td>
+                        <td className="px-6 py-4 text-gray-600">
+                          {institute.type}
+                        </td>
+                        <td className="px-6 py-4 text-gray-600">
+                          {institute.email}
+                        </td>
+                        <td className="px-6 py-4 text-gray-600">
+                          {institute.location}
+                        </td>
+                        <td className="px-6 py-4 text-gray-600">
+                          {institute.status}
+                        </td>
                         <td className="px-6 py-4">
                           <button className="text-indigo-600 hover:text-indigo-800 mr-3">
                             Edit
@@ -178,7 +199,9 @@ const ViewInstitutes = () => {
                             d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332-.477-4.5-1.253"
                           />
                         </svg>
-                        <p className="text-gray-500 text-lg">No institutes found for this organization</p>
+                        <p className="text-gray-500 text-lg">
+                          No institutes found for this organization
+                        </p>
                         <Link
                           to={`/organizations/${id}/institutes/add`}
                           className="mt-4 inline-block px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105"
