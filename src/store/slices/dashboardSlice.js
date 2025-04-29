@@ -1,0 +1,66 @@
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+// Mock API call (replace with actual backend API later)
+export const fetchDashboardMetrics = createAsyncThunk(
+  'dashboard/fetchMetrics',
+  async () => {
+    // Simulate API delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return {
+      totalUsers: 3842,
+      organizations: 12,
+      institutes: 28,
+      admins: 42,
+      students: 3000, // Estimated for user distribution
+      teachers: 500,  // Estimated for user distribution
+      others: 300,    // Estimated for user distribution
+      userGrowthMonthly: [
+        { month: 'Jan', users: 30 },
+        { month: 'Feb', users: 40 },
+        { month: 'Mar', users: 50 },
+        { month: 'Apr', users: 70 },
+        { month: 'May', users: 90 },
+        { month: 'Jun', users: 100 },
+      ],
+      userGrowthYearly: [
+        { year: '2021', users: 200 },
+        { year: '2022', users: 500 },
+        { year: '2023', users: 900 },
+        { year: '2024', users: 1500 },
+        { year: '2025', users: 3842 },
+      ],
+      recentAttendance: [
+        { id: 'ST001', name: 'Alice Brown', class: 'Grade 10A', date: '2025-04-24', status: 'Present' },
+        { id: 'ST002', name: 'Bob Wilson', class: 'Grade 9B', date: '2025-04-24', status: 'Absent' },
+        { id: 'ST003', name: 'Clara Davis', class: 'Grade 11C', date: '2025-04-24', status: 'Present' },
+      ],
+    };
+  }
+);
+
+const dashboardSlice = createSlice({
+  name: 'dashboard',
+  initialState: {
+    metrics: {},
+    loading: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchDashboardMetrics.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchDashboardMetrics.fulfilled, (state, action) => {
+        state.loading = false;
+        state.metrics = action.payload;
+      })
+      .addCase(fetchDashboardMetrics.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+  },
+});
+
+export default dashboardSlice.reducer;
