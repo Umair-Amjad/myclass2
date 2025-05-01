@@ -6,8 +6,8 @@ import AdminDashboard from "./pages/dashboard/AdminDashboard";
 import OrganizationManagement from "./pages/organization/OrganizationManagement";
 import OrganizationAdd from "./pages/organization/OrganizationAdd";
 import OrganizationDetails from "./pages/organization/OrganizationDetails";
-import ViewInstitutes from './pages/organization/ViewInstitutes';
-
+import ViewInstitutes from "./pages/organization/ViewInstitutes";
+import InstituteDashboard from "./pages/dashboard/InstituteDashboard"; // Adjust the path as needed
 
 const App = () => {
   return (
@@ -18,6 +18,7 @@ const App = () => {
           <Route path="/organizations" element={<OrganizationManagement />} />
           <Route path="/organizations/add" element={<OrganizationAdd />} />
           <Route path="/organizations/:id" element={<OrganizationDetails />} />
+          <Route path="/institute/dashboard" element={<InstituteDashboard />} />
           <Route
             path="/organizations/:id/institutes"
             element={<ViewInstitutes />}
@@ -27,7 +28,7 @@ const App = () => {
           <Route path="/organizations/:id/institutes" element={<div>View Institutes (To Be Implemented)</div>} />
           <Route path="/organizations/add" element={<div>Add Organization (To Be Implemented)</div>} /> */}
           <Route path="/" element={<AdminDashboard />} />
-          {/* <Route path="*" element={<div>404 - Page Not Found</div>} /> */}
+          <Route path="*" element={<div>404 - Page Not Found</div>} />
         </Routes>
       </Router>
     </Provider>

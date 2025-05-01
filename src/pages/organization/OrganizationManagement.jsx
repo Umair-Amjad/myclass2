@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import AdminSidebar from '../../components/layout/AdminSidebar';
-import DashboardHeader from '../../components/layout/DashboardHeader';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
+import AdminSidebar from "../../components/layout/AdminSidebar";
+import DashboardHeader from "../../components/layout/DashboardHeader";
 
 const OrganizationManagement = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState({});
   const buttonRefs = useRef({});
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState(""); // State for sorting
+  const [filterType, setFilterType] = useState(""); // State for filtering by type
   const [organizations, setOrganizations] = useState([]);
   const [metrics, setMetrics] = useState({
     organizations: 0,
@@ -21,12 +23,17 @@ const OrganizationManagement = () => {
 
   // Fetch organizations from localStorage and calculate metrics
   useEffect(() => {
-    const storedOrganizations = JSON.parse(localStorage.getItem('organizations')) || [];
+    const storedOrganizations =
+      JSON.parse(localStorage.getItem("organizations")) || [];
     setOrganizations(storedOrganizations);
 
     // Calculate metrics
-    const activeOrgs = storedOrganizations.filter(org => org.status === 'Active').length;
-    const pendingOrgs = storedOrganizations.filter(org => org.status === 'Pending').length;
+    const activeOrgs = storedOrganizations.filter(
+      (org) => org.status === "Active"
+    ).length;
+    const pendingOrgs = storedOrganizations.filter(
+      (org) => org.status === "Pending"
+    ).length;
     setMetrics({
       organizations: storedOrganizations.length,
       activeOrganizations: activeOrgs,
@@ -56,28 +63,59 @@ const OrganizationManagement = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownOpen]);
 
-  // Filter organizations based on search query
-  const filteredOrganizations = organizations.filter((org) =>
-    Object.values(org)
-      .filter((value) => typeof value === 'string')
-      .some((value) =>
-        value.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-  );
+  // Filter, sort, and search organizations
+  const filteredOrganizations = organizations
+    .filter((org) =>
+      Object.values(org)
+        .filter((value) => typeof value === "string")
+        .some((value) =>
+          value.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+    )
+    .filter((org) =>
+      filterType ? org.type.toLowerCase() === filterType.toLowerCase() : true
+    )
+    .sort((a, b) => {
+      if (sortBy === "name") {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === "type") {
+        return a.type.localeCompare(b.type);
+      } else if (sortBy === "location") {
+        const locationA = `${a.address}${a.city ? `, ${a.city}` : ""}${
+          a.state ? `, ${a.state}` : ""
+        }${a.postalCode ? `, ${a.postalCode}` : ""}${
+          a.country ? `, ${a.country}` : ""
+        }`;
+        const locationB = `${b.address}${b.city ? `, ${b.city}` : ""}${
+          b.state ? `, ${b.state}` : ""
+        }${b.postalCode ? `, ${b.postalCode}` : ""}${
+          b.country ? `, ${b.country}` : ""
+        }`;
+        return locationA.localeCompare(locationB);
+      } else if (sortBy === "status") {
+        return a.status.localeCompare(b.status);
+      }
+      return 0; // Default: no sorting
+    });
 
   // Handle Refresh button click
   const handleRefresh = () => {
-    const storedOrganizations = JSON.parse(localStorage.getItem('organizations')) || [];
+    const storedOrganizations =
+      JSON.parse(localStorage.getItem("organizations")) || [];
     setOrganizations(storedOrganizations);
 
-    const activeOrgs = storedOrganizations.filter(org => org.status === 'Active').length;
-    const pendingOrgs = storedOrganizations.filter(org => org.status === 'Pending').length;
+    const activeOrgs = storedOrganizations.filter(
+      (org) => org.status === "Active"
+    ).length;
+    const pendingOrgs = storedOrganizations.filter(
+      (org) => org.status === "Pending"
+    ).length;
     setMetrics({
       organizations: storedOrganizations.length,
       activeOrganizations: activeOrgs,
@@ -85,14 +123,16 @@ const OrganizationManagement = () => {
       institutes: 0,
       totalUsers: 0,
     });
-    setSearchQuery('');
+    setSearchQuery("");
+    setSortBy(""); // Reset sorting
+    setFilterType(""); // Reset filter
   };
 
   // Handle Delete action
   const handleDelete = (id) => {
     const updatedOrganizations = organizations.filter((org) => org.id !== id);
     setOrganizations(updatedOrganizations);
-    localStorage.setItem('organizations', JSON.stringify(updatedOrganizations));
+    localStorage.setItem("organizations", JSON.stringify(updatedOrganizations));
     setDropdownOpen((prev) => {
       const newState = { ...prev };
       delete newState[id];
@@ -100,8 +140,12 @@ const OrganizationManagement = () => {
     });
 
     // Update metrics after deletion
-    const activeOrgs = updatedOrganizations.filter(org => org.status === 'Active').length;
-    const pendingOrgs = updatedOrganizations.filter(org => org.status === 'Pending').length;
+    const activeOrgs = updatedOrganizations.filter(
+      (org) => org.status === "Active"
+    ).length;
+    const pendingOrgs = updatedOrganizations.filter(
+      (org) => org.status === "Pending"
+    ).length;
     setMetrics({
       organizations: updatedOrganizations.length,
       activeOrganizations: activeOrgs,
@@ -166,7 +210,12 @@ const OrganizationManagement = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
             <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
               <div className="bg-blue-500 p-3 rounded-full">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -176,13 +225,22 @@ const OrganizationManagement = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-600">Total Organizations</h3>
-                <p className="text-2xl font-bold text-gray-800">{metrics.organizations}</p>
+                <h3 className="text-sm font-medium text-gray-600">
+                  Total Organizations
+                </h3>
+                <p className="text-2xl font-bold text-gray-800">
+                  {metrics.organizations}
+                </p>
               </div>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
               <div className="bg-green-500 p-3 rounded-full">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -192,13 +250,22 @@ const OrganizationManagement = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-600">Active Organizations</h3>
-                <p className="text-2xl font-bold text-gray-800">{metrics.activeOrganizations}</p>
+                <h3 className="text-sm font-medium text-gray-600">
+                  Active Organizations
+                </h3>
+                <p className="text-2xl font-bold text-gray-800">
+                  {metrics.activeOrganizations}
+                </p>
               </div>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
               <div className="bg-orange-500 p-3 rounded-full">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -208,13 +275,22 @@ const OrganizationManagement = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-600">Pending Organizations</h3>
-                <p className="text-2xl font-bold text-gray-800">{metrics.pendingOrganizations}</p>
+                <h3 className="text-sm font-medium text-gray-600">
+                  Pending Organizations
+                </h3>
+                <p className="text-2xl font-bold text-gray-800">
+                  {metrics.pendingOrganizations}
+                </p>
               </div>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
               <div className="bg-purple-500 p-3 rounded-full">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -224,13 +300,22 @@ const OrganizationManagement = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-600">Total Institutes</h3>
-                <p className="text-2xl font-bold text-gray-800">{metrics.institutes}</p>
+                <h3 className="text-sm font-medium text-gray-600">
+                  Total Institutes
+                </h3>
+                <p className="text-2xl font-bold text-gray-800">
+                  {metrics.institutes}
+                </p>
               </div>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
               <div className="bg-cyan-500 p-3 rounded-full">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -240,8 +325,12 @@ const OrganizationManagement = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-600">Total Users</h3>
-                <p className="text-2xl font-bold text-gray-800">{metrics.totalUsers}</p>
+                <h3 className="text-sm font-medium text-gray-600">
+                  Total Users
+                </h3>
+                <p className="text-2xl font-bold text-gray-800">
+                  {metrics.totalUsers}
+                </p>
               </div>
             </div>
           </div>
@@ -255,14 +344,22 @@ const OrganizationManagement = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <select className="border border-gray-300 rounded-md px-2 py-1">
+            <select
+              className="border border-gray-300 rounded-md px-2 py-1"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
               <option value="">Sort by</option>
               <option value="name">Name</option>
               <option value="type">Type</option>
               <option value="location">Location</option>
               <option value="status">Status</option>
             </select>
-            <select className="border border-gray-300 rounded-md px-2 py-1">
+            <select
+              className="border border-gray-300 rounded-md px-2 py-1"
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+            >
               <option value="">All Types</option>
               <option value="college">College</option>
               <option value="school">School</option>
@@ -325,7 +422,10 @@ const OrganizationManagement = () => {
               <tbody>
                 {filteredOrganizations.length > 0 ? (
                   filteredOrganizations.map((org) => (
-                    <tr key={org.id} className="border-b hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={org.id}
+                      className="border-b hover:bg-gray-50 transition-colors"
+                    >
                       <td className="py-3 flex items-center space-x-3">
                         <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold">
                           {org.name.charAt(0).toUpperCase()}
@@ -335,18 +435,18 @@ const OrganizationManagement = () => {
                       <td className="py-3 capitalize">{org.type}</td>
                       <td className="py-3">{org.email}</td>
                       <td className="py-3">
-                        {`${org.address}${org.city ? `, ${org.city}` : ''}${
-                          org.state ? `, ${org.state}` : ''
-                        }${org.postalCode ? `, ${org.postalCode}` : ''}${
-                          org.country ? `, ${org.country}` : ''
+                        {`${org.address}${org.city ? `, ${org.city}` : ""}${
+                          org.state ? `, ${org.state}` : ""
+                        }${org.postalCode ? `, ${org.postalCode}` : ""}${
+                          org.country ? `, ${org.country}` : ""
                         }`}
                       </td>
                       <td className="py-3">
                         <span
                           className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            org.status === 'Active'
-                              ? 'bg-green-100 text-green-700'
-                              : 'bg-red-100 text-red-700'
+                            org.status === "Active"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-red-100 text-red-700"
                           }`}
                         >
                           {org.status}
@@ -472,7 +572,9 @@ const OrganizationManagement = () => {
                 ) : (
                   <tr>
                     <td colSpan="6" className="py-4 text-center text-gray-500">
-                      {searchQuery ? 'No matching organizations found' : 'No organizations found'}
+                      {searchQuery || filterType
+                        ? "No matching organizations found"
+                        : "No organizations found"}
                     </td>
                   </tr>
                 )}
@@ -491,13 +593,19 @@ const OrganizationManagement = () => {
               <div className="text-gray-600">
                 {filteredOrganizations.length > 0
                   ? `1-${filteredOrganizations.length} of ${filteredOrganizations.length}`
-                  : '0-0 of 0'}
+                  : "0-0 of 0"}
               </div>
               <div className="flex space-x-2">
-                <button className="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-100" disabled>
+                <button
+                  className="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-100"
+                  disabled
+                >
                   &lt;
                 </button>
-                <button className="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-100" disabled>
+                <button
+                  className="px-3 py-1 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-100"
+                  disabled
+                >
                   &gt;
                 </button>
               </div>
