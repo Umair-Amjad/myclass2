@@ -4,7 +4,7 @@ import AdminSidebar from '../../components/layout/AdminSidebar';
 import DashboardHeader from '../../components/layout/DashboardHeader';
 
 const OrganizationManagement = () => {
-  // const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState({});
   const buttonRefs = useRef({});
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,7 +17,7 @@ const OrganizationManagement = () => {
     totalUsers: 0,
   });
 
-  // const toggleSidebar = () => setIsOpen(!isOpen);
+  const toggleSidebar = () => setIsOpen(!isOpen);
 
   // Fetch organizations from localStorage and calculate metrics
   useEffect(() => {
@@ -122,7 +122,7 @@ const OrganizationManagement = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <AdminSidebar />
+      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col md:ml-64">
