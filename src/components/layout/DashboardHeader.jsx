@@ -2,7 +2,7 @@ import React from 'react';
 
 const DashboardHeader = ({ isOpen, toggleSidebar }) => {
   return (
-    <header className="bg-blue-800 text-white p-4 flex justify-between items-center shadow-md s">
+    <header className="bg-blue-800 text-white p-4 flex justify-between items-center shadow-md ">
       {/* Hamburger Icon for Mobile */}
       <div className="flex items-center">
         <button
