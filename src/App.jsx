@@ -7,7 +7,7 @@ import OrganizationManagement from "./pages/organization/OrganizationManagement"
 import OrganizationAdd from "./pages/organization/OrganizationAdd";
 import OrganizationDetails from "./pages/organization/OrganizationDetails";
 import ViewInstitutes from './pages/organization/ViewInstitutes';
-
+import Login from "./pages/Auth/login";
 
 const App = () => {
   return (
@@ -28,6 +28,7 @@ const App = () => {
           <Route path="/organizations/add" element={<div>Add Organization (To Be Implemented)</div>} /> */}
           <Route path="/" element={<AdminDashboard />} />
           {/* <Route path="*" element={<div>404 - Page Not Found</div>} /> */}
+          <Route path="/login" element={<Login/>}/>
         </Routes>
       </Router>
     </Provider>
