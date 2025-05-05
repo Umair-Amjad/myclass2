@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDashboardMetrics } from '../../store/slices/dashboardSlice';
+import { 
+  fetchDashboardMetrics, 
+  selectMetrics, 
+  selectLoading, 
+  selectError,
+  selectUserGrowth 
+} from '../../store/slices/dashboardSlice';
 import AdminSidebar from '../../components/layout/AdminSidebar';
 import DashboardHeader from '../../components/layout/DashboardHeader';
 import { Link } from 'react-router-dom';
@@ -31,64 +37,55 @@ ChartJS.register(
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
-  const { metrics, loading, error } = useSelector((state) => state.dashboard);
+  const metrics = useSelector(selectMetrics);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
   const [isOpen, setIsOpen] = useState(false);
   const [growthPeriod, setGrowthPeriod] = useState('Monthly');
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  const toggleSidebar = useCallback(() => setIsOpen(prev => !prev), []);
 
   useEffect(() => {
     dispatch(fetchDashboardMetrics());
   }, [dispatch]);
 
   // Handle Refresh button click
-  const handleRefresh = () => {
+  const handleRefresh = useCallback(() => {
     dispatch(fetchDashboardMetrics());
-  };
+  }, [dispatch]);
 
   // Handle Organization button click (placeholder)
-  const handleOrganization = () => {
+  const handleOrganization = useCallback(() => {
     console.log('Organization button clicked - functionality to be implemented');
-  };
+  }, []);
 
-  // User Growth Line Chart Data (switch between Monthly and Yearly)
-  const userGrowthData = {
-    labels:
-      growthPeriod === 'Monthly'
-        ? metrics.userGrowthMonthly
-          ? metrics.userGrowthMonthly.map((trend) => trend.month)
-          : []
-        : metrics.userGrowthYearly
-        ? metrics.userGrowthYearly.map((trend) => trend.year)
-        : [],
+  // Get user growth data from memoized selector
+  const userGrowthChartData = useSelector(state => selectUserGrowth(state, growthPeriod));
+
+  // User Growth Line Chart Data - memoized
+  const userGrowthData = useMemo(() => ({
+    labels: userGrowthChartData.labels,
     datasets: [
       {
         label: 'New Users',
-        data:
-          growthPeriod === 'Monthly'
-            ? metrics.userGrowthMonthly
-              ? metrics.userGrowthMonthly.map((trend) => trend.users)
-              : []
-            : metrics.userGrowthYearly
-            ? metrics.userGrowthYearly.map((trend) => trend.users)
-            : [],
+        data: userGrowthChartData.values,
         fill: false,
         borderColor: 'rgba(34, 197, 94, 0.8)',
         tension: 0.4,
       },
     ],
-  };
+  }), [userGrowthChartData]);
 
-  // User Distribution Doughnut Chart Data
-  const userDistributionData = {
+  // User Distribution Doughnut Chart Data - memoized
+  const userDistributionData = useMemo(() => ({
     labels: ['Teachers', 'Students', 'Admins', 'Others'],
     datasets: [
       {
         data: [
-          metrics.teachers || 0,
-          metrics.students || 0,
-          metrics.admins || 0,
-          metrics.others || 0,
+          metrics?.teachers || 0,
+          metrics?.students || 0,
+          metrics?.admins || 0,
+          metrics?.others || 0,
         ],
         backgroundColor: [
           'rgba(59, 130, 246, 0.8)',
@@ -105,9 +102,10 @@ const AdminDashboard = () => {
         borderWidth: 1,
       },
     ],
-  };
+  }), [metrics?.teachers, metrics?.students, metrics?.admins, metrics?.others]);
 
-  const chartOptions = {
+  // Chart options - memoized
+  const chartOptions = useMemo(() => ({
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -135,10 +133,10 @@ const AdminDashboard = () => {
         },
       },
     },
-  };
+  }), []);
 
   // Dummy data for recent organizations (replace with actual data from metrics if available)
-  const recentOrganizations = [
+  const recentOrganizations = useMemo(() => [
     {
       id: 1,
       name: 'Acme Schools',
@@ -171,7 +169,54 @@ const AdminDashboard = () => {
       users: 56,
       institutes: 1,
     },
-  ];
+  ], []);
+
+  // Function to handle period change
+  const handlePeriodChange = useCallback((period) => {
+    setGrowthPeriod(period);
+  }, []);
+
+  // Loading state
+  if (loading && !metrics?.totalUsers) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex">
+        <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+        <div className="flex-1 flex flex-col md:ml-64">
+          <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+          <div className="p-6 flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+              <p className="mt-4 text-gray-600">Loading dashboard data...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex">
+        <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+        <div className="flex-1 flex flex-col md:ml-64">
+          <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+          <div className="p-6 flex-1">
+            <div className="bg-red-50 p-4 rounded-md border border-red-200 mb-6">
+              <h2 className="text-red-700 text-lg font-semibold">Error Loading Dashboard</h2>
+              <p className="text-red-600">{error}</p>
+              <button 
+                onClick={handleRefresh}
+                className="mt-3 px-4 py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition-colors"
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -232,10 +277,6 @@ const AdminDashboard = () => {
               </button>
             </div>
           </div>
-
-          {error && (
-            <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">{error}</p>
-          )}
 
           {/* Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -323,7 +364,7 @@ const AdminDashboard = () => {
                   <h3 className="text-lg font-medium text-gray-700">User Growth</h3>
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => setGrowthPeriod('Monthly')}
+                      onClick={() => handlePeriodChange('Monthly')}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
                         growthPeriod === 'Monthly' ? 'bg-blue-600' : 'bg-blue-400'
                       } hover:bg-blue-700 transition-colors`}
@@ -331,7 +372,7 @@ const AdminDashboard = () => {
                       Monthly
                     </button>
                     <button
-                      onClick={() => setGrowthPeriod('Yearly')}
+                      onClick={() => handlePeriodChange('Yearly')}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
                         growthPeriod === 'Yearly' ? 'bg-blue-600' : 'bg-blue-400'
                       } hover:bg-blue-700 transition-colors`}

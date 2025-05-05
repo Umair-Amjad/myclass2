@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 const DashboardHeader = ({ isOpen, toggleSidebar }) => {
   return (
@@ -56,4 +56,5 @@ const DashboardHeader = ({ isOpen, toggleSidebar }) => {
   );
 };
 
-export default DashboardHeader;
+// Using memo to prevent unnecessary re-renders
+export default memo(DashboardHeader);
