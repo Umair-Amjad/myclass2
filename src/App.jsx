@@ -10,6 +10,7 @@ import OrganizationAdd from "./pages/organization/OrganizationAdd";
 import OrganizationDetails from "./pages/organization/OrganizationDetails";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/signup";
+import ForgetPassword from "./pages/Auth/Forgetpassword";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/institutes/add" element={<AddInstitute />} />
         <Route path="/login" element={<Login/>}/>
         <Route path="/Signup" element={<Signup/>}/>
+        <Route path="/forget" element={<ForgetPassword/>}/>
         <Route
           path="/organizations/:id/institutes"
           element={<ViewInstitutes />}

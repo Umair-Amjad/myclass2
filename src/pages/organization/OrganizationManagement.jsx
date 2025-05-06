@@ -208,7 +208,7 @@ const OrganizationManagement = () => {
 
           {/* Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
+            <div className="bg-white p-6 rounded-xl shadow-lg flex items-center justify-center space-x-4">
               <div className="bg-blue-500 p-3 rounded-full">
                 <svg
                   className="w-6 h-6 text-white"
@@ -225,7 +225,7 @@ const OrganizationManagement = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-600">
+                <h3 className="text-sm font-medium text-gray-600 ">
                   Total Organizations
                 </h3>
                 <p className="text-2xl font-bold text-gray-800">
