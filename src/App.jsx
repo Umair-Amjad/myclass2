@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import NotFound from "./components/NotFound";
 
 // Lazy load components
 const AdminDashboard = lazy(() => import("./pages/dashboard/AdminDashboard"));
@@ -69,7 +70,7 @@ const App = () => {
             />
             
             <Route path="/" element={<AdminDashboard />} />
-            <Route path="*" element={<div>404 - Page Not Found</div>} />
+            <Route path="*" element={<NotFound/>} />
           </Routes>
         </Suspense>
       </ErrorBoundary>
