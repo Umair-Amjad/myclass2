@@ -56,7 +56,7 @@ const OrganizationDetails = () => {
           <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
         </div>
         {/* Organization Details Content */}
-        <main className="p-8 flex-1 max-w-6xl mx-auto">
+        <main className="p-24 flex-1 max-w-6xl mx-auto">
           {/* Heading */}
           <h1 className="text-3xl font-extrabold text-gray-800 mb-6 ml-10">
             Organization Details
@@ -341,7 +341,7 @@ const OrganizationDetails = () => {
                 Statistics
               </h3>
               <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-indigo-50 rounded-lg transition-transform duration-200 hover:scale-105">
+                <div className="text-center p-2 bg-indigo-50 rounded-lg transition-transform duration-200 hover:scale-105">
                   <p className="text-2xl font-extrabold text-indigo-700">0</p>
                   <p className="text-sm text-gray-600 mt-1">Total Institutes</p>
                   <Link

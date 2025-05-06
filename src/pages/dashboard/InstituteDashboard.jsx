@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchDashboardMetrics } from "../../store/slices/dashboardSlice";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 import DashboardHeader from "../../components/layout/DashboardHeader";
-import { Link, useNavigate } from "react-router-dom";
-import { Line, Doughnut } from "react-chartjs-2";
+import { Link } from "react-router-dom";
+import { Bar, Doughnut, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
+  BarElement,
   LineElement,
   PointElement,
   ArcElement,
@@ -21,6 +22,7 @@ import {
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  BarElement,
   LineElement,
   PointElement,
   ArcElement,
@@ -29,12 +31,12 @@ ChartJS.register(
   Legend
 );
 
-const AdminDashboard = () => {
+const InstituteDashboard = () => {
   const dispatch = useDispatch();
   const { metrics, loading, error } = useSelector((state) => state.dashboard);
+  const { institutes } = useSelector((state) => state.institute);
   const [isOpen, setIsOpen] = useState(false);
   const [growthPeriod, setGrowthPeriod] = useState("Monthly");
-  const navigate = useNavigate();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -47,135 +49,79 @@ const AdminDashboard = () => {
     dispatch(fetchDashboardMetrics());
   };
 
-  // Handle Organization button click (placeholder)
-  const handleOrganization = () => {
-    console.log(
-      "Organization button clicked - functionality to be implemented"
-    );
-    navigate("/organizations");
-  };
-
-  // User Growth Line Chart Data (switch between Monthly and Yearly)
-  const userGrowthData = {
-    labels:
-      growthPeriod === "Monthly"
-        ? metrics.userGrowthMonthly
-          ? metrics.userGrowthMonthly.map((trend) => trend.month)
-          : []
-        : metrics.userGrowthYearly
-        ? metrics.userGrowthYearly.map((trend) => trend.year)
-        : [],
-    datasets: [
-      {
-        label: "New Users",
-        data:
-          growthPeriod === "Monthly"
-            ? metrics.userGrowthMonthly
-              ? metrics.userGrowthMonthly.map((trend) => trend.users)
-              : []
-            : metrics.userGrowthYearly
-            ? metrics.userGrowthYearly.map((trend) => trend.users)
-            : [],
-        fill: false,
-        borderColor: "rgba(34, 197, 94, 0.8)",
-        tension: 0.4,
-      },
-    ],
-  };
-
-  // User Distribution Doughnut Chart Data
-  const userDistributionData = {
-    labels: ["Teachers", "Students", "Admins", "Others"],
-    datasets: [
-      {
-        data: [
-          metrics.teachers || 0,
-          metrics.students || 0,
-          metrics.admins || 0,
-          metrics.others || 0,
-        ],
-        backgroundColor: [
-          "rgba(59, 130, 246, 0.8)",
-          "rgba(255, 99, 132, 0.8)",
-          "rgba(255, 206, 86, 0.8)",
-          "rgba(54, 162, 235, 0.8)",
-        ],
-        borderColor: [
-          "rgba(59, 130, 246, 1)",
-          "rgba(255, 99, 132, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(54, 162, 235, 1)",
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
-
+  // Chart Options
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "bottom",
-        labels: {
-          color: "#1F2937",
-        },
+        labels: { color: "#1F2937" },
       },
-      title: {
-        display: true,
-        color: "#1F2937",
-      },
+      title: { display: true, color: "#1F2937" },
     },
     scales: {
-      y: {
-        beginAtZero: true,
-        ticks: {
-          color: "#1F2937",
-        },
-      },
-      x: {
-        ticks: {
-          color: "#1F2937",
-        },
-      },
+      y: { beginAtZero: true, ticks: { color: "#1F2937" } },
+      x: { ticks: { color: "#1F2937" } },
     },
   };
 
-  // Dummy data for recent organizations (replace with actual data from metrics if available)
-  const recentOrganizations = [
-    {
-      id: 1,
-      name: "Acme Schools",
-      type: "K-12",
-      status: "Active",
-      users: 245,
-      institutes: 3,
-    },
-    {
-      id: 2,
-      name: "Better Education Group",
-      type: "Higher Education",
-      status: "Active",
-      users: 512,
-      institutes: 2,
-    },
-    {
-      id: 3,
-      name: "City College",
-      type: "College",
-      status: "Active",
-      users: 189,
-      institutes: 1,
-    },
-    {
-      id: 4,
-      name: "Digital Learning",
-      type: "Online",
-      status: "Pending",
-      users: 56,
-      institutes: 1,
-    },
-  ];
+  // Bar Chart Data (Institute Metrics)
+  const instituteMetricsData = {
+    labels: ["Students", "Teachers", "Classes"],
+    datasets: [
+      {
+        label: "Count",
+        data: [
+          metrics.instituteStudents || 0,
+          metrics.instituteTeachers || 0,
+          metrics.instituteClasses || 0,
+        ],
+        backgroundColor: ["#3B82F6", "#10B981", "#8B5CF6"],
+      },
+    ],
+  };
+
+  // Doughnut Chart Data (Attendance Rate)
+  const attendanceRateData = {
+    labels: ["Present", "Absent"],
+    datasets: [
+      {
+        data: [92, 8], // Static for now, replace with dynamic data if available
+        backgroundColor: ["#10B981", "#EF4444"],
+        borderColor: ["#10B981", "#EF4444"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // Line Chart Data (Institute Growth Trends)
+  const instituteGrowthData = {
+    labels:
+      growthPeriod === "Monthly"
+        ? metrics.instituteGrowthMonthly
+          ? metrics.instituteGrowthMonthly.map((trend) => trend.month)
+          : []
+        : metrics.instituteGrowthYearly
+        ? metrics.instituteGrowthYearly.map((trend) => trend.year)
+        : [],
+    datasets: [
+      {
+        label: "Institute Growth",
+        data:
+          growthPeriod === "Monthly"
+            ? metrics.instituteGrowthMonthly
+              ? metrics.instituteGrowthMonthly.map((trend) => trend.count)
+              : []
+            : metrics.instituteGrowthYearly
+            ? metrics.instituteGrowthYearly.map((trend) => trend.count)
+            : [],
+        fill: false,
+        borderColor: "#F59E0B",
+        tension: 0.4,
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -191,7 +137,7 @@ const AdminDashboard = () => {
         <main className="p-24 flex-1">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500">
-              Admin Dashboard
+              Institute Dashboard
             </h1>
             <div className="flex space-x-3">
               <button
@@ -214,8 +160,8 @@ const AdminDashboard = () => {
                 </svg>
                 Refresh
               </button>
-              <button
-                onClick={handleOrganization}
+              <Link
+                to="/institutes/add"
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
               >
                 <svg
@@ -232,8 +178,8 @@ const AdminDashboard = () => {
                     d="M4 6h16M4 10h16M4 14h16M4 18h16"
                   />
                 </svg>
-                Organizations
-              </button>
+                Add Institute
+              </Link>
             </div>
           </div>
 
@@ -261,9 +207,9 @@ const AdminDashboard = () => {
                   />
                 </svg>
                 <div>
-                  <h3 className="text-lg font-medium">Total Users</h3>
+                  <h3 className="text-lg font-medium">Total Students</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? "Loading..." : metrics.totalUsers || "0"}
+                    {loading ? "Loading..." : metrics.instituteStudents || "0"}
                   </p>
                 </div>
               </div>
@@ -284,9 +230,9 @@ const AdminDashboard = () => {
                   />
                 </svg>
                 <div>
-                  <h3 className="text-lg font-medium">Organizations</h3>
+                  <h3 className="text-lg font-medium">Total Teachers</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? "Loading..." : metrics.organizations || "0"}
+                    {loading ? "Loading..." : metrics.instituteTeachers || "0"}
                   </p>
                 </div>
               </div>
@@ -307,9 +253,9 @@ const AdminDashboard = () => {
                   />
                 </svg>
                 <div>
-                  <h3 className="text-lg font-medium">Institutes</h3>
+                  <h3 className="text-lg font-medium">Total Classes</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? "Loading..." : metrics.institutes || "0"}
+                    {loading ? "Loading..." : metrics.instituteClasses || "0"}
                   </p>
                 </div>
               </div>
@@ -330,9 +276,9 @@ const AdminDashboard = () => {
                   />
                 </svg>
                 <div>
-                  <h3 className="text-lg font-medium">Admins</h3>
+                  <h3 className="text-lg font-medium">Attendance Rate</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? "Loading..." : metrics.admins || "0"}
+                    {loading ? "Loading..." : "92%"}
                   </p>
                 </div>
               </div>
@@ -344,12 +290,57 @@ const AdminDashboard = () => {
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
               Analytics
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* User Growth Line Chart */}
-              <div className="bg-white p-6 rounded-xl shadow-lg card-glass h-80">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Institute Metrics Bar Chart */}
+              <div className="bg-white p-6 rounded-xl shadow-lg h-80">
+                <h3 className="text-lg font-medium text-gray-700 mb-4">
+                  Institute Metrics
+                </h3>
+                {loading ? (
+                  <p className="text-center text-gray-500">Loading...</p>
+                ) : (
+                  <div className="h-60">
+                    <Bar
+                      data={instituteMetricsData}
+                      options={{
+                        ...chartOptions,
+                        plugins: {
+                          ...chartOptions.plugins,
+                          title: { display: false },
+                        },
+                        scales: { y: { beginAtZero: true, max: 500 } },
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              {/* Attendance Rate Doughnut Chart */}
+              <div className="bg-white p-6 rounded-xl shadow-lg h-80">
+                <h3 className="text-lg font-medium text-gray-700 mb-4">
+                  Attendance Rate
+                </h3>
+                {loading ? (
+                  <p className="text-center text-gray-500">Loading...</p>
+                ) : (
+                  <div className="h-60 flex items-center justify-center">
+                    <Doughnut
+                      data={attendanceRateData}
+                      options={{
+                        ...chartOptions,
+                        plugins: {
+                          ...chartOptions.plugins,
+                          title: { display: false },
+                        },
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              {/* Institute Growth Line Chart */}
+              <div className="bg-white p-6 rounded-xl shadow-lg h-80">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-medium text-gray-700">
-                    User Growth
+                    Institute Growth
                   </h3>
                   <div className="flex space-x-2">
                     <button
@@ -379,35 +370,14 @@ const AdminDashboard = () => {
                 ) : (
                   <div className="h-60">
                     <Line
-                      data={userGrowthData}
+                      data={instituteGrowthData}
                       options={{
                         ...chartOptions,
                         plugins: {
                           ...chartOptions.plugins,
                           title: { display: false },
                         },
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-              {/* User Distribution Doughnut Chart */}
-              <div className="bg-white p-6 rounded-xl shadow-lg card-glass h-80">
-                <h3 className="text-lg font-medium text-gray-700 mb-4">
-                  User Distribution
-                </h3>
-                {loading ? (
-                  <p className="text-center text-gray-500">Loading...</p>
-                ) : (
-                  <div className="h-60 flex items-center justify-center">
-                    <Doughnut
-                      data={userDistributionData}
-                      options={{
-                        ...chartOptions,
-                        plugins: {
-                          ...chartOptions.plugins,
-                          title: { display: false },
-                        },
+                        scales: { y: { beginAtZero: true, max: 100 } },
                       }}
                     />
                   </div>
@@ -423,7 +393,7 @@ const AdminDashboard = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Link
-                to="/organizations/add"
+                to="/institutes/add"
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-between"
               >
                 <div className="flex items-center space-x-3">
@@ -445,10 +415,10 @@ const AdminDashboard = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800">
-                      Add Organization
+                      Add Institute
                     </h3>
                     <p className="text-sm text-gray-500">
-                      Create a new organization
+                      Create a new institute
                     </p>
                   </div>
                 </div>
@@ -468,7 +438,7 @@ const AdminDashboard = () => {
                 </svg>
               </Link>
               <Link
-                to="/admins/manage"
+                to="/institutes/manage"
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-between"
               >
                 <div className="flex items-center space-x-3">
@@ -490,106 +460,10 @@ const AdminDashboard = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800">
-                      Manage Admins
+                      Manage Institutes
                     </h3>
                     <p className="text-sm text-gray-500">
-                      Add or remove super admins
-                    </p>
-                  </div>
-                </div>
-                <svg
-                  className="w-5 h-5 text-blue-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </Link>
-              <Link
-                to="/settings"
-                className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-between"
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-orange-100 rounded-full">
-                    <svg
-                      className="w-6 h-6 text-orange-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      Platform Settings
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      Configure system settings
-                    </p>
-                  </div>
-                </div>
-                <svg
-                  className="w-5 h-5 text-blue-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </Link>
-              <Link
-                to="/analytics"
-                className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-between"
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-green-100 rounded-full">
-                    <svg
-                      className="w-6 h-6 text-green-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 elyn24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      View Analytics
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      Full platform analytics
+                      View or edit institutes
                     </p>
                   </div>
                 </div>
@@ -611,14 +485,14 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          {/* Recent Organizations Table */}
+          {/* Recent Institutes Table */}
           <div className="bg-white p-6 rounded-xl shadow-lg backdrop-blur-sm bg-opacity-80">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-semibold text-gray-800">
-                Recent Organizations
+                Recent Institutes
               </h2>
               <Link
-                to="/organizations"
+                to="/institutes"
                 className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
               >
                 View All
@@ -644,47 +518,41 @@ const AdminDashboard = () => {
                   <th className="py-3 text-gray-600">Name</th>
                   <th className="py-3 text-gray-600">Type</th>
                   <th className="py-3 text-gray-600">Status</th>
-                  <th className="py-3 text-gray-600">Users</th>
-                  <th className="py-3 text-gray-600">Institutes</th>
+                  <th className="py-3 text-gray-600">Students</th>
+                  <th className="py-3 text-gray-600">Classes</th>
                   <th className="py-3 text-gray-600">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {loading ? (
-                  <tr>
-                    <td colSpan="6" className="py-4 text-center text-gray-500">
-                      Loading...
-                    </td>
-                  </tr>
-                ) : recentOrganizations && recentOrganizations.length > 0 ? (
-                  recentOrganizations.map((org) => (
+                {institutes.length > 0 ? (
+                  institutes.map((institute) => (
                     <tr
-                      key={org.id}
+                      key={institute.id}
                       className="border-b hover:bg-gray-50 transition-colors"
                     >
                       <td className="py-3 flex items-center space-x-3">
                         <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold">
-                          {org.name.charAt(0).toUpperCase()}
+                          {institute.name.charAt(0).toUpperCase()}
                         </div>
-                        <span>{org.name}</span>
+                        <span>{institute.name}</span>
                       </td>
-                      <td className="py-3">{org.type}</td>
+                      <td className="py-3">{institute.type}</td>
                       <td className="py-3">
                         <span
                           className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            org.status === "Active"
+                            institute.status === "Active"
                               ? "bg-green-100 text-green-700"
                               : "bg-orange-100 text-orange-700"
                           }`}
                         >
-                          {org.status}
+                          {institute.status}
                         </span>
                       </td>
-                      <td className="py-3">{org.users}</td>
-                      <td className="py-3">{org.institutes}</td>
+                      <td className="py-3">{institute.students}</td>
+                      <td className="py-3">{institute.classes}</td>
                       <td className="py-3">
                         <Link
-                          to={`/organizations/${org.id}`}
+                          to={`/institutes/${institute.id}`}
                           className="text-blue-600 hover:text-blue-800"
                         >
                           <svg
@@ -708,7 +576,7 @@ const AdminDashboard = () => {
                 ) : (
                   <tr>
                     <td colSpan="6" className="py-4 text-center text-gray-500">
-                      No organizations found
+                      No institutes found
                     </td>
                   </tr>
                 )}
@@ -721,4 +589,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default InstituteDashboard;

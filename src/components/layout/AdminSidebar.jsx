@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/image.jpg";
-
+// Props are comes from AdminDashboard
 const AdminSidebar = ({ isOpen, toggleSidebar }) => {
   // State to manage submenu visibility
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [isPlatformOpen, setIsPlatformOpen] = useState(true); // Platform Management is expanded by default
+  const [isPlatformOpen, setIsPlatformOpen] = useState(true);
 
   // Toggle functions for submenus with mutual exclusivity
   const toggleAdminMenu = () => {
@@ -22,7 +22,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
     <>
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-indigo-800 to-blue-600 text-white transform ${
+        className={`fixed inset-y-0 left-0 w-70 bg-gradient-to-b from-indigo-800 to-blue-600 text-white transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 ease-in-out z-50 card-glass shadow-xl`}
       >
@@ -32,9 +32,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
             alt="School Logo"
             className="w-24 h-24 rounded-full shadow-md mb-3 transform hover:scale-105 transition-transform duration-200"
           />
-          <h2 className="text-lg font-semibold text-center">
-            SMS
-          </h2>
+          <h2 className="text-lg font-semibold text-center">SMS</h2>
           <p className="text-sm text-blue-200 font-light italic animate-pulse">
             School Management System
           </p>
@@ -244,11 +242,37 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
                   <span>Organizations</span>
                 </NavLink>
 
+                {/* Institute Dashboard */}
+                <NavLink
+                  to="/institute/dashboard"
+                  className={({ isActive }) =>
+                    `flex items-center space-x-3 py-2 px-4 mt-2 rounded-lg ${
+                      isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
+                    } transition-colors duration-200`
+                  }
+                  onClick={() => toggleSidebar()}
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                    />
+                  </svg>
+                  <span>Institute Dashboard</span>
+                </NavLink>
+
                 {/* Super Admins */}
                 <NavLink
                   to="/super-admins"
                   className={({ isActive }) =>
-                    `flex items-center space-x-3 py-2 px-4 rounded-lg ${
+                    `flex items-center space-x-3 py-2 px-4  mt-2 rounded-lg ${
                       isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
                     } transition-colors duration-200`
                   }
@@ -274,7 +298,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
                 <NavLink
                   to="/global-users"
                   className={({ isActive }) =>
-                    `flex items-center space-x-3 py-2 px-4 rounded-lg ${
+                    `flex items-center space-x-3 py-2 px-4 mt-2 rounded-lg ${
                       isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
                     } transition-colors duration-200`
                   }
@@ -300,7 +324,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
                 <NavLink
                   to="/platform-insights"
                   className={({ isActive }) =>
-                    `flex items-center space-x-3 py-2 px-4 rounded-lg ${
+                    `flex items-center space-x-3 py-2 px-4 mt-2 rounded-lg ${
                       isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
                     } transition-colors duration-200`
                   }

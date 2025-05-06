@@ -1,45 +1,87 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Mock API call (replace with actual backend API later)
 export const fetchDashboardMetrics = createAsyncThunk(
-  'dashboard/fetchMetrics',
+  "dashboard/fetchMetrics",
   async () => {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
     return {
+      // Existing metrics for AdminDashboard
       totalUsers: 3842,
       organizations: 12,
       institutes: 28,
       admins: 42,
       students: 3000, // Estimated for user distribution
-      teachers: 500,  // Estimated for user distribution
-      others: 300,    // Estimated for user distribution
+      teachers: 500, // Estimated for user distribution
+      others: 300, // Estimated for user distribution
       userGrowthMonthly: [
-        { month: 'Jan', users: 30 },
-        { month: 'Feb', users: 40 },
-        { month: 'Mar', users: 50 },
-        { month: 'Apr', users: 70 },
-        { month: 'May', users: 90 },
-        { month: 'Jun', users: 100 },
+        { month: "Jan", users: 30 },
+        { month: "Feb", users: 40 },
+        { month: "Mar", users: 50 },
+        { month: "Apr", users: 70 },
+        { month: "May", users: 90 },
+        { month: "Jun", users: 100 },
       ],
       userGrowthYearly: [
-        { year: '2021', users: 200 },
-        { year: '2022', users: 500 },
-        { year: '2023', users: 900 },
-        { year: '2024', users: 1500 },
-        { year: '2025', users: 3842 },
+        { year: "2021", users: 200 },
+        { year: "2022", users: 500 },
+        { year: "2023", users: 900 },
+        { year: "2024", users: 1500 },
+        { year: "2025", users: 3842 },
       ],
       recentAttendance: [
-        { id: 'ST001', name: 'Alice Brown', class: 'Grade 10A', date: '2025-04-24', status: 'Present' },
-        { id: 'ST002', name: 'Bob Wilson', class: 'Grade 9B', date: '2025-04-24', status: 'Absent' },
-        { id: 'ST003', name: 'Clara Davis', class: 'Grade 11C', date: '2025-04-24', status: 'Present' },
+        {
+          id: "ST001",
+          name: "Alice Brown",
+          class: "Grade 10A",
+          date: "2025-04-24",
+          status: "Present",
+        },
+        {
+          id: "ST002",
+          name: "Bob Wilson",
+          class: "Grade 9B",
+          date: "2025-04-24",
+          status: "Absent",
+        },
+        {
+          id: "ST003",
+          name: "Clara Davis",
+          class: "Grade 11C",
+          date: "2025-04-24",
+          status: "Present",
+        },
+      ],
+      // New metrics for InstituteDashboard
+      instituteStudents: 350,
+      instituteTeachers: 25,
+      instituteClasses: 15,
+      attendanceRate: {
+        present: 92,
+        absent: 8,
+      },
+      instituteGrowthMonthly: [
+        { month: "Jan", count: 10 },
+        { month: "Feb", count: 15 },
+        { month: "Mar", count: 20 },
+        { month: "Apr", count: 25 },
+        { month: "May", count: 30 },
+        { month: "Jun", count: 35 },
+      ],
+      instituteGrowthYearly: [
+        { year: "2021", count: 50 },
+        { year: "2022", count: 60 },
+        { year: "2023", count: 70 },
+        { year: "2024", count: 80 },
+        { year: "2025", count: 90 },
       ],
     };
   }
 );
 
 const dashboardSlice = createSlice({
-  name: 'dashboard',
+  name: "dashboard",
   initialState: {
     metrics: {},
     loading: false,
