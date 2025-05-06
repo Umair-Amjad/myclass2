@@ -9,7 +9,7 @@ import {
 } from '../../store/slices/dashboardSlice';
 import AdminSidebar from '../../components/layout/AdminSidebar';
 import DashboardHeader from '../../components/layout/DashboardHeader';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Line, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
