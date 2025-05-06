@@ -21,7 +21,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 // Register Chart.js components
 ChartJS.register(
@@ -41,7 +41,8 @@ const AdminDashboard = () => {
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const [isOpen, setIsOpen] = useState(false);
-  const [growthPeriod, setGrowthPeriod] = useState('Monthly');
+  const [growthPeriod, setGrowthPeriod] = useState("Monthly");
+  const navigate = useNavigate();
 
   const toggleSidebar = useCallback(() => setIsOpen(prev => !prev), []);
 
@@ -57,6 +58,7 @@ const AdminDashboard = () => {
   // Handle Organization button click (placeholder)
   const handleOrganization = useCallback(() => {
     console.log('Organization button clicked - functionality to be implemented');
+    navigate("/organizations");
   }, []);
 
   // Get user growth data from memoized selector
@@ -70,7 +72,7 @@ const AdminDashboard = () => {
         label: 'New Users',
         data: userGrowthChartData.values,
         fill: false,
-        borderColor: 'rgba(34, 197, 94, 0.8)',
+        borderColor: "rgba(34, 197, 94, 0.8)",
         tension: 0.4,
       },
     ],
@@ -88,16 +90,16 @@ const AdminDashboard = () => {
           metrics?.others || 0,
         ],
         backgroundColor: [
-          'rgba(59, 130, 246, 0.8)',
-          'rgba(255, 99, 132, 0.8)',
-          'rgba(255, 206, 86, 0.8)',
-          'rgba(54, 162, 235, 0.8)',
+          "rgba(59, 130, 246, 0.8)",
+          "rgba(255, 99, 132, 0.8)",
+          "rgba(255, 206, 86, 0.8)",
+          "rgba(54, 162, 235, 0.8)",
         ],
         borderColor: [
-          'rgba(59, 130, 246, 1)',
-          'rgba(255, 99, 132, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(54, 162, 235, 1)',
+          "rgba(59, 130, 246, 1)",
+          "rgba(255, 99, 132, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(54, 162, 235, 1)",
         ],
         borderWidth: 1,
       },
@@ -110,26 +112,26 @@ const AdminDashboard = () => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'bottom',
+        position: "bottom",
         labels: {
-          color: '#1F2937',
+          color: "#1F2937",
         },
       },
       title: {
         display: true,
-        color: '#1F2937',
+        color: "#1F2937",
       },
     },
     scales: {
       y: {
         beginAtZero: true,
         ticks: {
-          color: '#1F2937',
+          color: "#1F2937",
         },
       },
       x: {
         ticks: {
-          color: '#1F2937',
+          color: "#1F2937",
         },
       },
     },
@@ -139,33 +141,33 @@ const AdminDashboard = () => {
   const recentOrganizations = useMemo(() => [
     {
       id: 1,
-      name: 'Acme Schools',
-      type: 'K-12',
-      status: 'Active',
+      name: "Acme Schools",
+      type: "K-12",
+      status: "Active",
       users: 245,
       institutes: 3,
     },
     {
       id: 2,
-      name: 'Better Education Group',
-      type: 'Higher Education',
-      status: 'Active',
+      name: "Better Education Group",
+      type: "Higher Education",
+      status: "Active",
       users: 512,
       institutes: 2,
     },
     {
       id: 3,
-      name: 'City College',
-      type: 'College',
-      status: 'Active',
+      name: "City College",
+      type: "College",
+      status: "Active",
       users: 189,
       institutes: 1,
     },
     {
       id: 4,
-      name: 'Digital Learning',
-      type: 'Online',
-      status: 'Pending',
+      name: "Digital Learning",
+      type: "Online",
+      status: "Pending",
       users: 56,
       institutes: 1,
     },
@@ -229,7 +231,7 @@ const AdminDashboard = () => {
         <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
 
         {/* Dashboard Content */}
-        <main className="p-6 flex-1">
+        <main className="p-24 flex-1">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500">
               Admin Dashboard
@@ -273,16 +275,27 @@ const AdminDashboard = () => {
                     d="M4 6h16M4 10h16M4 14h16M4 18h16"
                   />
                 </svg>
-                Organization
+                Organizations
               </button>
             </div>
           </div>
+
+          {error && (
+            <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">
+              {error}
+            </p>
+          )}
 
           {/* Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div className="bg-gradient-to-br from-blue-500 to-blue-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -293,14 +306,19 @@ const AdminDashboard = () => {
                 <div>
                   <h3 className="text-lg font-medium">Total Users</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? 'Loading...' : metrics.totalUsers || '0'}
+                    {loading ? "Loading..." : metrics.totalUsers || "0"}
                   </p>
                 </div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-green-500 to-green-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -311,14 +329,19 @@ const AdminDashboard = () => {
                 <div>
                   <h3 className="text-lg font-medium">Organizations</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? 'Loading...' : metrics.organizations || '0'}
+                    {loading ? "Loading..." : metrics.organizations || "0"}
                   </p>
                 </div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-purple-500 to-purple-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -329,14 +352,19 @@ const AdminDashboard = () => {
                 <div>
                   <h3 className="text-lg font-medium">Institutes</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? 'Loading...' : metrics.institutes || '0'}
+                    {loading ? "Loading..." : metrics.institutes || "0"}
                   </p>
                 </div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-orange-500 to-orange-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -347,7 +375,7 @@ const AdminDashboard = () => {
                 <div>
                   <h3 className="text-lg font-medium">Admins</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? 'Loading...' : metrics.admins || '0'}
+                    {loading ? "Loading..." : metrics.admins || "0"}
                   </p>
                 </div>
               </div>
@@ -356,17 +384,23 @@ const AdminDashboard = () => {
 
           {/* Analytics Section */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Analytics</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+              Analytics
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* User Growth Line Chart */}
               <div className="bg-white p-6 rounded-xl shadow-lg card-glass h-80">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-medium text-gray-700">User Growth</h3>
+                  <h3 className="text-lg font-medium text-gray-700">
+                    User Growth
+                  </h3>
                   <div className="flex space-x-2">
                     <button
                       onClick={() => handlePeriodChange('Monthly')}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
-                        growthPeriod === 'Monthly' ? 'bg-blue-600' : 'bg-blue-400'
+                        growthPeriod === "Monthly"
+                          ? "bg-blue-600"
+                          : "bg-blue-400"
                       } hover:bg-blue-700 transition-colors`}
                     >
                       Monthly
@@ -374,7 +408,9 @@ const AdminDashboard = () => {
                     <button
                       onClick={() => handlePeriodChange('Yearly')}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
-                        growthPeriod === 'Yearly' ? 'bg-blue-600' : 'bg-blue-400'
+                        growthPeriod === "Yearly"
+                          ? "bg-blue-600"
+                          : "bg-blue-400"
                       } hover:bg-blue-700 transition-colors`}
                     >
                       Yearly
@@ -400,7 +436,9 @@ const AdminDashboard = () => {
               </div>
               {/* User Distribution Doughnut Chart */}
               <div className="bg-white p-6 rounded-xl shadow-lg card-glass h-80">
-                <h3 className="text-lg font-medium text-gray-700 mb-4">User Distribution</h3>
+                <h3 className="text-lg font-medium text-gray-700 mb-4">
+                  User Distribution
+                </h3>
                 {loading ? (
                   <p className="text-center text-gray-500">Loading...</p>
                 ) : (
@@ -423,7 +461,9 @@ const AdminDashboard = () => {
 
           {/* Quick Actions */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Quick Actions</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+              Quick Actions
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Link
                 to="/organizations/add"
@@ -447,8 +487,12 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">Add Organization</h3>
-                    <p className="text-sm text-gray-500">Create a new organization</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      Add Organization
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Create a new organization
+                    </p>
                   </div>
                 </div>
                 <svg
@@ -488,8 +532,12 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">Manage Admins</h3>
-                    <p className="text-sm text-gray-500">Add or remove super admins</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      Manage Admins
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Add or remove super admins
+                    </p>
                   </div>
                 </div>
                 <svg
@@ -535,8 +583,12 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">Platform Settings</h3>
-                    <p className="text-sm text-gray-500">Configure system settings</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      Platform Settings
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Configure system settings
+                    </p>
                   </div>
                 </div>
                 <svg
@@ -576,8 +628,12 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">View Analytics</h3>
-                    <p className="text-sm text-gray-500">Full platform analytics</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      View Analytics
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Full platform analytics
+                    </p>
                   </div>
                 </div>
                 <svg
@@ -601,7 +657,9 @@ const AdminDashboard = () => {
           {/* Recent Organizations Table */}
           <div className="bg-white p-6 rounded-xl shadow-lg backdrop-blur-sm bg-opacity-80">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-semibold text-gray-800">Recent Organizations</h2>
+              <h2 className="text-2xl font-semibold text-gray-800">
+                Recent Organizations
+              </h2>
               <Link
                 to="/organizations"
                 className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
@@ -643,7 +701,10 @@ const AdminDashboard = () => {
                   </tr>
                 ) : recentOrganizations && recentOrganizations.length > 0 ? (
                   recentOrganizations.map((org) => (
-                    <tr key={org.id} className="border-b hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={org.id}
+                      className="border-b hover:bg-gray-50 transition-colors"
+                    >
                       <td className="py-3 flex items-center space-x-3">
                         <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold">
                           {org.name.charAt(0).toUpperCase()}
@@ -654,9 +715,9 @@ const AdminDashboard = () => {
                       <td className="py-3">
                         <span
                           className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            org.status === 'Active'
-                              ? 'bg-green-100 text-green-700'
-                              : 'bg-orange-100 text-orange-700'
+                            org.status === "Active"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-orange-100 text-orange-700"
                           }`}
                         >
                           {org.status}

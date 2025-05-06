@@ -69,7 +69,7 @@ const ViewInstitutes = () => {
         <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
 
         {/* Institutes Content */}
-        <main className="py-8 px-0 max-w-6xl ml-64">
+        <main className="py-24 px-0 max-w-6xl ml-64">
           {/* Title */}
           <div className="flex items-center mb-6">
             <h1 className="text-3xl font-extrabold text-gray-800">

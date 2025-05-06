@@ -174,7 +174,7 @@ const OrganizationManagement = () => {
         <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
 
         {/* Organization Management Content */}
-        <main className="p-6 flex-1">
+        <main className="p-24 flex-1">
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-800">

@@ -34,6 +34,7 @@ ChartJS.register(
 const InstituteDashboard = () => {
   const dispatch = useDispatch();
   const { metrics, loading, error } = useSelector((state) => state.dashboard);
+  const { institutes } = useSelector((state) => state.institute);
   const [isOpen, setIsOpen] = useState(false);
   const [growthPeriod, setGrowthPeriod] = useState("Monthly");
 
@@ -46,13 +47,6 @@ const InstituteDashboard = () => {
   // Handle Refresh button click
   const handleRefresh = () => {
     dispatch(fetchDashboardMetrics());
-  };
-
-  // Handle Add institue button click
-  const handleOrganization = () => {
-    console.log(
-      "Organization button clicked - functionality to be implemented"
-    );
   };
 
   // Chart Options
@@ -129,42 +123,6 @@ const InstituteDashboard = () => {
     ],
   };
 
-  // Dummy data for recent institutes (replace with actual data from metrics if available)
-  const recentInstitutes = [
-    {
-      id: 1,
-      name: "Institute A",
-      type: "K-12",
-      status: "Active",
-      students: 350,
-      classes: 15,
-    },
-    {
-      id: 2,
-      name: "Institute B",
-      type: "Higher Education",
-      status: "Active",
-      students: 500,
-      classes: 20,
-    },
-    {
-      id: 3,
-      name: "Institute C",
-      type: "College",
-      status: "Pending",
-      students: 200,
-      classes: 10,
-    },
-    {
-      id: 4,
-      name: "Institute D",
-      type: "Online",
-      status: "Active",
-      students: 150,
-      classes: 8,
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
@@ -176,7 +134,7 @@ const InstituteDashboard = () => {
         <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
 
         {/* Dashboard Content */}
-        <main className="p-6 flex-1">
+        <main className="p-24 flex-1">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500">
               Institute Dashboard
@@ -202,8 +160,8 @@ const InstituteDashboard = () => {
                 </svg>
                 Refresh
               </button>
-              <button
-                onClick={handleOrganization}
+              <Link
+                to="/institutes/add"
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
               >
                 <svg
@@ -221,7 +179,7 @@ const InstituteDashboard = () => {
                   />
                 </svg>
                 Add Institute
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -566,14 +524,8 @@ const InstituteDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {loading ? (
-                  <tr>
-                    <td colSpan="6" className="py-4 text-center text-gray-500">
-                      Loading...
-                    </td>
-                  </tr>
-                ) : recentInstitutes && recentInstitutes.length > 0 ? (
-                  recentInstitutes.map((institute) => (
+                {institutes.length > 0 ? (
+                  institutes.map((institute) => (
                     <tr
                       key={institute.id}
                       className="border-b hover:bg-gray-50 transition-colors"

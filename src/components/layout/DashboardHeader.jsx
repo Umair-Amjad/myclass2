@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 const DashboardHeader = ({ isOpen, toggleSidebar }) => {
   return (
-    <header className="bg-blue-800 text-white p-4 flex justify-between items-center shadow-md">
+    <header className="fixed top-0 left-0 w-full bg-blue-800 text-white p-4 flex justify-between items-center shadow-md z-10">
       {/* Hamburger Icon for Mobile */}
       <div className="flex items-center">
         <button
@@ -20,11 +20,13 @@ const DashboardHeader = ({ isOpen, toggleSidebar }) => {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              d={isOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
+              d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
             />
           </svg>
         </button>
-        <h1 className="text-lg font-semibold">School Management System - Admin</h1>
+        {/* <h1 className="text-lg font-semibold">
+          School Management System - Admin
+        </h1> */}
       </div>
 
       {/* Right Side: Notifications and User Profile */}
