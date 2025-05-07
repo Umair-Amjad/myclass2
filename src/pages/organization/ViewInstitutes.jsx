@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
+
 
 const ViewInstitutes = () => {
   const { id } = useParams(); // Get organization ID from URL
@@ -65,8 +65,7 @@ const ViewInstitutes = () => {
           isOpen ? "md:ml-64" : "md:ml-16"
         }`}
       >
-        {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+       
 
         {/* Institutes Content */}
         <main className="py-24 px-0 max-w-6xl ml-64">

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
 
 const OrganizationManagement = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -170,9 +169,6 @@ const OrganizationManagement = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
         {/* Organization Management Content */}
         <main className="p-24 flex-1">
           <div className="flex justify-between items-center mb-6">

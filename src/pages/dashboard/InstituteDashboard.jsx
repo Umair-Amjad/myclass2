@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDashboardMetrics } from "../../store/slices/dashboardSlice";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
+// import DashboardHeader from "../../components/layout/DashboardHeader";
 import { Link } from "react-router-dom";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import {
@@ -34,7 +34,6 @@ ChartJS.register(
 const InstituteDashboard = () => {
   const dispatch = useDispatch();
   const { metrics, loading, error } = useSelector((state) => state.dashboard);
-  const { institutes } = useSelector((state) => state.institute);
   const [isOpen, setIsOpen] = useState(false);
   const [growthPeriod, setGrowthPeriod] = useState("Monthly");
 
@@ -47,6 +46,13 @@ const InstituteDashboard = () => {
   // Handle Refresh button click
   const handleRefresh = () => {
     dispatch(fetchDashboardMetrics());
+  };
+
+  // Handle Add institue button click
+  const handleOrganization = () => {
+    console.log(
+      "Organization button clicked - functionality to be implemented"
+    );
   };
 
   // Chart Options
@@ -123,6 +129,42 @@ const InstituteDashboard = () => {
     ],
   };
 
+  // Dummy data for recent institutes (replace with actual data from metrics if available)
+  const recentInstitutes = [
+    {
+      id: 1,
+      name: "Institute A",
+      type: "K-12",
+      status: "Active",
+      students: 350,
+      classes: 15,
+    },
+    {
+      id: 2,
+      name: "Institute B",
+      type: "Higher Education",
+      status: "Active",
+      students: 500,
+      classes: 20,
+    },
+    {
+      id: 3,
+      name: "Institute C",
+      type: "College",
+      status: "Pending",
+      students: 200,
+      classes: 10,
+    },
+    {
+      id: 4,
+      name: "Institute D",
+      type: "Online",
+      status: "Active",
+      students: 150,
+      classes: 8,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
@@ -131,7 +173,7 @@ const InstituteDashboard = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col md:ml-64">
         {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+        {/* <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} /> */}
 
         {/* Dashboard Content */}
         <main className="p-24 flex-1">
@@ -160,8 +202,8 @@ const InstituteDashboard = () => {
                 </svg>
                 Refresh
               </button>
-              <Link
-                to="/institutes/add"
+              <button
+                onClick={handleOrganization}
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
               >
                 <svg
@@ -179,7 +221,7 @@ const InstituteDashboard = () => {
                   />
                 </svg>
                 Add Institute
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -524,8 +566,14 @@ const InstituteDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {institutes.length > 0 ? (
-                  institutes.map((institute) => (
+                {loading ? (
+                  <tr>
+                    <td colSpan="6" className="py-4 text-center text-gray-500">
+                      Loading...
+                    </td>
+                  </tr>
+                ) : recentInstitutes && recentInstitutes.length > 0 ? (
+                  recentInstitutes.map((institute) => (
                     <tr
                       key={institute.id}
                       className="border-b hover:bg-gray-50 transition-colors"

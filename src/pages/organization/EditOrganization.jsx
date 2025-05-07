@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
+
 
 const EditOrganization = () => {
   const { id } = useParams(); // Get the organization ID from the URL
@@ -83,7 +83,7 @@ const EditOrganization = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col md:ml-64">
         {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+        
 
         {/* Edit Organization Form */}
         <main className="p-24 flex-1">

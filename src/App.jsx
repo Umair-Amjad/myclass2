@@ -8,12 +8,14 @@ import EditOrganization from "./pages/organization/EditOrganization";
 import ViewInstitutes from "./pages/organization/ViewInstitutes";
 import InstituteDashboard from "./pages/dashboard/InstituteDashboard";
 import AddInstitute from "./pages/organization/AddInstitute";
+import Platforminsite from "./pages/organization/Platforminsite";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/dashboard" element={<AdminDashboard />} />
+        {/* plateform owner */}
+        <Route path="/" element={<AdminDashboard />} />
         <Route path="/organizations" element={<OrganizationManagement />} />
         <Route path="/organizations/add" element={<OrganizationAdd />} />
         <Route path="/organizations/:id" element={<OrganizationDetails />} />
@@ -24,7 +26,11 @@ const App = () => {
           path="/organizations/:id/institutes"
           element={<ViewInstitutes />}
         />
+        <Route path="/platform-insights" element={<Platforminsite />} />
         {/* <Route path="/" element={<AdminDashboard />} /> */}
+
+        {/* organization routes */}
+
         <Route path="*" element={<div>404 - Page Not Found</div>} />
       </Routes>
     </Router>

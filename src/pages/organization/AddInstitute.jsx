@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
 import { addInstitute } from "../../store/slices/instituteSlice";
 
 // Yup validation schema
@@ -73,7 +72,7 @@ const AddInstitute = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col md:ml-64">
         {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+      
 
         {/* Form Content */}
         <main className="p-24 flex-1">

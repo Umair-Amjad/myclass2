@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
+
 
 const OrganizationDetails = () => {
   const { id } = useParams();
@@ -52,8 +52,7 @@ const OrganizationDetails = () => {
         }`}
       >
         <div className="ml-48">
-          {/* Header */}
-          <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+
         </div>
         {/* Organization Details Content */}
         <main className="p-24 flex-1 max-w-6xl mx-auto">

@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
 
 // Yup validation schema
 const validationSchema = Yup.object({
@@ -71,8 +70,7 @@ const OrganizationAdd = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+ 
 
         {/* Form Content */}
         <main className="p-24 flex-1">
