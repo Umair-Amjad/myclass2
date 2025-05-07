@@ -74,7 +74,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 w-64 !bg-gradient-to-b !from-blue-800 !to-blue-600 text-white transform ${
+        className={`fixed inset-y-0 left-0 w-72 !bg-gradient-to-b !from-blue-800 !to-blue-600 text-white transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 ease-in-out z-50 shadow-xl mt-16 md:mt-0`}
       >
