@@ -9,6 +9,7 @@ import ViewInstitutes from "./pages/organization/ViewInstitutes";
 import InstituteDashboard from "./pages/dashboard/InstituteDashboard";
 import AddInstitute from "./pages/organization/AddInstitute";
 import Platforminsite from "./pages/organization/Platforminsite";
+import Settings from "./pages/Setting";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         {/* organization routes */}
 
         <Route path="*" element={<div>404 - Page Not Found</div>} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </Router>
   );

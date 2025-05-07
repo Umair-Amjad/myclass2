@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDashboardMetrics } from "../../store/slices/dashboardSlice";
 import AdminSidebar from "../../components/layout/AdminSidebar";
-// import DashboardHeader from "../../components/layout/DashboardHeader";
 import { Link, useNavigate } from "react-router-dom";
 import { Line, Doughnut } from "react-chartjs-2";
 import {
