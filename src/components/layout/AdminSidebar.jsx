@@ -489,7 +489,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
               <div className="mt-1">
                 {/* Organizations */}
                 <NavLink
-                  to="/organizations"
+                  to="/platform/organizations"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 py-2 px-4 rounded-lg ${
                       isActive ? "bg-indigo-900" : "hover:bg-indigo-700"

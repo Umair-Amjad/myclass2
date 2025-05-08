@@ -60,7 +60,7 @@ const OrganizationAdd = () => {
 
     console.log("Form values:", values);
     setSubmitting(false);
-    navigate("/organizations");
+    navigate("/platform/organizations");
   };
 
   return (
@@ -410,7 +410,7 @@ const OrganizationAdd = () => {
                 {/* Buttons */}
                 <div className="flex justify-end space-x-4">
                   <Link
-                    to="/organizations"
+                    to="/platform/organizations"
                     className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg shadow-md hover:bg-gray-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
                   >
                     Cancel

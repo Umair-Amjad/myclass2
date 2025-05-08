@@ -123,7 +123,7 @@ const ViewInstitutes = () => {
               </select>
             </div>
             <Link
-              to={`/organizations/${id}/institutes/add`}
+              to={`/platform/organizations/${id}/institutes/add`}
               className="mt-3 sm:mt-0 px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105"
             >
               Add Institute
@@ -202,7 +202,7 @@ const ViewInstitutes = () => {
                           No institutes found for this organization
                         </p>
                         <Link
-                          to={`/organizations/${id}/institutes/add`}
+                          to={`/platform/organizations/${id}/institutes/add`}
                           className="mt-4 inline-block px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105"
                         >
                           ADD FIRST INSTITUTE
@@ -218,7 +218,7 @@ const ViewInstitutes = () => {
           {/* Back Button */}
           <div className="mt-10 flex justify-start">
             <Link
-              to={`/organizations/${id}`}
+              to={`/platform/organizations/${id}`}
               className="flex items-center px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105 mr-10"
             >
               <svg

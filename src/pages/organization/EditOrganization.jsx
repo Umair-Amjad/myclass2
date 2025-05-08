@@ -71,7 +71,7 @@ const EditOrganization = () => {
     localStorage.setItem("organizations", JSON.stringify(updatedOrganizations));
 
     // Redirect back to the Organization Management page
-    navigate("/organizations");
+    navigate("/platform/organizations");
   };
 
   return (
@@ -291,7 +291,7 @@ const EditOrganization = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => navigate("/organizations")}
+                  onClick={() => navigate("/platform/organizations")}
                   className="px-4 py-2 border border-gray-300 text-gray-600 rounded-md hover:bg-gray-100 transition-colors"
                 >
                   Cancel

@@ -51,7 +51,7 @@ const AdminDashboard = () => {
     console.log(
       "Organization button clicked - functionality to be implemented"
     );
-    navigate("/organizations");
+    navigate("platform/organizations");
   };
 
   // User Growth Line Chart Data (switch between Monthly and Yearly)
@@ -422,7 +422,7 @@ const AdminDashboard = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Link
-                to="/organizations/add"
+                to="/platform/organizations/add"
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-between"
               >
                 <div className="flex items-center space-x-3">

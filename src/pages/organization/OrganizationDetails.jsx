@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 
-
 const OrganizationDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ const OrganizationDetails = () => {
     if (org) {
       setOrganization(org);
     } else {
-      navigate("/organizations");
+      navigate("/platform/organizations");
     }
   }, [id, navigate]);
 
@@ -29,7 +28,7 @@ const OrganizationDetails = () => {
       (org) => org.id !== parseInt(id)
     );
     localStorage.setItem("organizations", JSON.stringify(updatedOrganizations));
-    navigate("/organizations");
+    navigate("/platform/organizations");
   };
 
   if (!organization) {
@@ -51,12 +50,10 @@ const OrganizationDetails = () => {
           isOpen ? "md:ml-64" : "md:ml-16"
         }`}
       >
-        <div className="ml-48">
-
-        </div>
+        <div className="ml-48"></div>
         {/* Organization Details Content */}
         <main className="p-24 flex-1 max-w-6xl mx-auto">
-          {/* Heading */}
+        
           <h1 className="text-3xl font-extrabold text-gray-800 mb-6 ml-10">
             Organization Details
           </h1>
@@ -64,7 +61,7 @@ const OrganizationDetails = () => {
           {/* buttons */}
           <div className="flex space-x-4 justify-end -mt-10 sm:-mt-12 md:-mt-14">
             <Link
-              to={`/organizations/${id}/edit`}
+              to={`/platform/organizations/${id}/edit`}
               className="flex items-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105"
             >
               <svg
@@ -344,7 +341,7 @@ const OrganizationDetails = () => {
                   <p className="text-2xl font-extrabold text-indigo-700">0</p>
                   <p className="text-sm text-gray-600 mt-1">Total Institutes</p>
                   <Link
-                    to={`/organizations/${id}/institutes`}
+                    to={`/platform/organizations/${id}/institutes`}
                     className="text-indigo-600 text-sm font-semibold hover:underline mt-2 inline-block transform transition-transform duration-200 hover:scale-110"
                   >
                     View Institutes
@@ -421,7 +418,7 @@ const OrganizationDetails = () => {
           {/* Bottom Back to Organizations Button */}
           <div className="mt-10 flex justify-start">
             <Link
-              to="/organizations"
+              to="/platform/organizations"
               className="flex items-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105 ml-10"
             >
               <svg

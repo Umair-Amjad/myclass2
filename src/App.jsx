@@ -17,14 +17,23 @@ const App = () => {
       <Routes>
         {/* plateform owner */}
         <Route path="/" element={<AdminDashboard />} />
-        <Route path="/organizations" element={<OrganizationManagement />} />
-        <Route path="/organizations/add" element={<OrganizationAdd />} />
-        <Route path="/organizations/:id" element={<OrganizationDetails />} />
-        <Route path="/organizations/:id/edit" element={<EditOrganization />} />
-        <Route path="/institute/dashboard" element={<InstituteDashboard />} />
-        <Route path="/institutes/add" element={<AddInstitute />} />
         <Route
-          path="/organizations/:id/institutes"
+          path="/platform/organizations"
+          element={<OrganizationManagement />}
+        />
+        <Route
+          path="/platform/organizations/add"
+          element={<OrganizationAdd />}
+        />
+        <Route
+          path="/platform/organizations/:id"
+          element={<OrganizationDetails />}
+        />
+        <Route path="/platform/organizations/:id/edit" element={<EditOrganization />} />
+        <Route path="/platform/institute/dashboard" element={<InstituteDashboard />} />
+        <Route path="/platform/institutes/add" element={<AddInstitute />} />
+        <Route
+          path="/platform/organizations/:id/institutes"
           element={<ViewInstitutes />}
         />
         <Route path="/platform-insights" element={<Platforminsite />} />

@@ -181,7 +181,7 @@ const OrganizationManagement = () => {
               </p>
             </div>
             <Link
-              to="/organizations/add"
+              to="/platform/organizations/add"
               className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               <svg
@@ -381,7 +381,7 @@ const OrganizationManagement = () => {
               Refresh
             </button>
             <Link
-              to="/organizations/add"
+              to="/platform/organizations/add"
               className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               <svg
@@ -472,7 +472,7 @@ const OrganizationManagement = () => {
                         {dropdownOpen[String(org.id)] && (
                           <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                             <Link
-                              to={`/organizations/${org.id}`}
+                              to={`/platform/organizations/${org.id}`}
                               className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
                               onClick={() => toggleDropdown(org.id)}
                             >
@@ -499,7 +499,7 @@ const OrganizationManagement = () => {
                               View Details
                             </Link>
                             <Link
-                              to={`/organizations/${org.id}/edit`}
+                              to={`/platform/organizations/${org.id}/edit`}
                               className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
                               onClick={() => toggleDropdown(org.id)}
                             >
@@ -520,7 +520,7 @@ const OrganizationManagement = () => {
                               Edit
                             </Link>
                             <Link
-                              to={`/organizations/${org.id}/institutes`}
+                              to={`/platform/organizations/${org.id}/institutes`}
                               className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
                               onClick={() => toggleDropdown(org.id)}
                             >
