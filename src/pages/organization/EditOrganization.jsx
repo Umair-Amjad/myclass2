@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 
-
 const EditOrganization = () => {
   const { id } = useParams(); // Get the organization ID from the URL
   const navigate = useNavigate();
@@ -83,7 +82,6 @@ const EditOrganization = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col md:ml-64">
         {/* Header */}
-        
 
         {/* Edit Organization Form */}
         <main className="p-24 flex-1">
@@ -138,9 +136,10 @@ const EditOrganization = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 >
-                  <option value="">Select Type</option>
+                  {/* <option value="">Select Type</option> */}
                   <option value="college">College</option>
                   <option value="school">School</option>
+                  <option value="university">University</option>
                 </select>
               </div>
 
@@ -278,7 +277,7 @@ const EditOrganization = () => {
                   <option value="">Select Status</option>
                   <option value="Active">Active</option>
                   <option value="Pending">Pending</option>
-                  <option value="Inactive">Inactive</option>
+                  <option value="Inactive">Suspend</option>
                 </select>
               </div>
 

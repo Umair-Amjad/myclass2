@@ -225,8 +225,12 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
                       />
                     </svg>
                     <div>
-                      <p className="text-sm  font-semibold">{user?.name || "User"}</p>
-                      <p className="text-xs  text-gray-500">{user?.email || "user@example.com"}</p>
+                      <p className="text-sm  font-semibold">
+                        {user?.name || "User"}
+                      </p>
+                      <p className="text-xs  text-gray-500">
+                        {user?.email || "user@example.com"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -485,7 +489,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
               <div className="mt-1">
                 {/* Organizations */}
                 <NavLink
-                  to="/platform/organization"
+                  to="/organizations"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 py-2 px-4 rounded-lg ${
                       isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
