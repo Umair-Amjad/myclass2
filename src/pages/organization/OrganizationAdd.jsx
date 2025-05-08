@@ -2,8 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-
+import { useOutletContext } from "react-router-dom";
 // Yup validation schema
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -19,9 +18,9 @@ const validationSchema = Yup.object({
 
 const OrganizationAdd = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const { toggleSidebar } = useOutletContext();
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  
 
   const initialValues = {
     name: "",
@@ -65,11 +64,8 @@ const OrganizationAdd = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-gray-100 to-blue-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
+      <div className="flex-1 flex flex-col">
         {/* Form Content */}
         <main className="p-24 flex-1">
           <h1 className="text-4xl font-extrabold text-gray-900 mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500 animate-fade-in">

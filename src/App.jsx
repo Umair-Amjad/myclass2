@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import SidebarLayout from "./components/layout/SidebarLayout";
 import PlatformOwnerDashboard from "./pages/dashboard/PlatformOwnerDashboard";
 import OrganizationManagement from "./pages/organization/OrganizationManagement";
 import OrganizationAdd from "./pages/organization/OrganizationAdd";
@@ -11,44 +12,35 @@ import AddInstitute from "./pages/organization/AddInstitute";
 import Platforminsite from "./pages/organization/Platforminsite";
 import Settings from "./pages/Setting";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <SidebarLayout />,
+    children: [
+      // PlatformOnwer Routes
+      { path: "", element: <PlatformOwnerDashboard /> },
+      { path: "platform/organizations", element: <OrganizationManagement /> },
+      { path: "platform/organizations/add", element: <OrganizationAdd /> },
+      { path: "platform/organizations/:id", element: <OrganizationDetails /> },
+      {
+        path: "platform/organizations/:id/edit",
+        element: <EditOrganization />,
+      },
+      { path: "platform/institutes/add", element: <AddInstitute /> },
+      {
+        path: "platform/organizations/:id/institutes",
+        element: <ViewInstitutes />,
+      },
+      { path: "platform-insights", element: <Platforminsite /> },
+      { path: "institute/dashboard", element: <InstituteDashboard /> },
+      { path: "settings", element: <Settings /> },
+      { path: "*", element: <div className="p-4">404 - Page Not Found</div> },
+    ],
+  },
+]);
+
 const App = () => {
-  return (
-    <Router>
-      <Routes>
-        {/* plateform owner Routes */}
-        <Route path="/" element={<PlatformOwnerDashboard />} />
-        <Route
-          path="/platform/organizations"
-          element={<OrganizationManagement />}
-        />
-        <Route
-          path="/platform/organizations/add"
-          element={<OrganizationAdd />}
-        />
-        <Route
-          path="/platform/organizations/:id"
-          element={<OrganizationDetails />}
-        />
-        <Route
-          path="/platform/organizations/:id/edit"
-          element={<EditOrganization />}
-        />
-        <Route path="/platform/institutes/add" element={<AddInstitute />} />
-        <Route
-          path="/platform/organizations/:id/institutes"
-          element={<ViewInstitutes />}
-        />
-        <Route path="/platform-insights" element={<Platforminsite />} />
-
-        {/* organization Routes */}
-        <Route path="*" element={<div>404 - Page Not Found</div>} />
-        <Route path="/settings" element={<Settings />} />
-
-        {/* Institute Routes */}
-        <Route path="/institute/dashboard" element={<InstituteDashboard />} />
-      </Routes>
-    </Router>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

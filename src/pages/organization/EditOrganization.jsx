@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import AdminSidebar from "../../components/layout/AdminSidebar";
+import { useOutletContext } from "react-router-dom";
+
 
 const EditOrganization = () => {
+  const { toggleSidebar } = useOutletContext();
   const { id } = useParams(); // Get the organization ID from the URL
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
   const [organization, setOrganization] = useState({
     name: "",
     type: "",
@@ -19,7 +20,7 @@ const EditOrganization = () => {
   });
   const [error, setError] = useState("");
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  
 
   // Fetch the organization data from localStorage based on ID
   useEffect(() => {
@@ -76,13 +77,9 @@ const EditOrganization = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-
+      {/* Remove md:ml-64 to the below class  */}
+      <div className="flex-1 flex flex-col">
         {/* Edit Organization Form */}
         <main className="p-24 flex-1">
           <div className="max-w-6xl  mx-auto">

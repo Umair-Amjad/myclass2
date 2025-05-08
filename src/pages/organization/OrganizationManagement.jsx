@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import AdminSidebar from "../../components/layout/AdminSidebar";
+import { useOutletContext } from "react-router-dom";
 
 const OrganizationManagement = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { toggleSidebar } = useOutletContext();
   const [dropdownOpen, setDropdownOpen] = useState({});
   const buttonRefs = useRef({});
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,7 +18,7 @@ const OrganizationManagement = () => {
     totalUsers: 0,
   });
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  
 
   // Fetch organizations from localStorage and calculate metrics
   useEffect(() => {
@@ -164,11 +164,8 @@ const OrganizationManagement = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
+      <div className="flex-1 flex flex-col ">
         {/* Organization Management Content */}
         <main className="p-24 flex-1">
           <div className="flex justify-between items-center mb-6">

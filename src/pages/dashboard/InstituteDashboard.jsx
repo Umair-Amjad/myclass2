@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDashboardMetrics } from "../../store/slices/dashboardSlice";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-// import DashboardHeader from "../../components/layout/DashboardHeader";
+import { useOutletContext } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import {
@@ -32,12 +31,11 @@ ChartJS.register(
 );
 
 const InstituteDashboard = () => {
+  const { toggleSidebar } = useOutletContext();
   const dispatch = useDispatch();
   const { metrics, loading, error } = useSelector((state) => state.dashboard);
-  const [isOpen, setIsOpen] = useState(false);
   const [growthPeriod, setGrowthPeriod] = useState("Monthly");
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     dispatch(fetchDashboardMetrics());
@@ -167,13 +165,9 @@ const InstituteDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-        {/* <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} /> */}
+      <div className="flex-1 flex flex-col">
 
         {/* Dashboard Content */}
         <main className="p-24 flex-1">

@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import AdminSidebar from "../../components/layout/AdminSidebar";
+import { useOutletContext } from "react-router-dom";
 import { addInstitute } from "../../store/slices/instituteSlice";
 
 // Yup validation schema
@@ -24,11 +24,12 @@ const validationSchema = Yup.object({
 });
 
 const AddInstitute = () => {
+  const { toggleSidebar } = useOutletContext();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  
 
   const initialValues = {
     name: "",
@@ -66,14 +67,8 @@ const AddInstitute = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-gray-100 to-blue-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
       <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-      
-
         {/* Form Content */}
         <main className="p-24 flex-1">
           <h1 className="text-4xl font-extrabold text-gray-900 mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500 animate-fade-in">
