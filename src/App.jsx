@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AdminDashboard from "./pages/dashboard/AdminDashboard";
+import PlatformOwnerDashboard from "./pages/dashboard/PlatformOwnerDashboard";
 import OrganizationManagement from "./pages/organization/OrganizationManagement";
 import OrganizationAdd from "./pages/organization/OrganizationAdd";
 import OrganizationDetails from "./pages/organization/OrganizationDetails";
@@ -15,8 +15,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* plateform owner */}
-        <Route path="/" element={<AdminDashboard />} />
+        {/* plateform owner Routes */}
+        <Route path="/" element={<PlatformOwnerDashboard />} />
         <Route
           path="/platform/organizations"
           element={<OrganizationManagement />}
@@ -29,20 +29,23 @@ const App = () => {
           path="/platform/organizations/:id"
           element={<OrganizationDetails />}
         />
-        <Route path="/platform/organizations/:id/edit" element={<EditOrganization />} />
-        <Route path="/platform/institute/dashboard" element={<InstituteDashboard />} />
+        <Route
+          path="/platform/organizations/:id/edit"
+          element={<EditOrganization />}
+        />
         <Route path="/platform/institutes/add" element={<AddInstitute />} />
         <Route
           path="/platform/organizations/:id/institutes"
           element={<ViewInstitutes />}
         />
         <Route path="/platform-insights" element={<Platforminsite />} />
-        {/* <Route path="/" element={<AdminDashboard />} /> */}
 
-        {/* organization routes */}
-
+        {/* organization Routes */}
         <Route path="*" element={<div>404 - Page Not Found</div>} />
         <Route path="/settings" element={<Settings />} />
+
+        {/* Institute Routes */}
+        <Route path="/institute/dashboard" element={<InstituteDashboard />} />
       </Routes>
     </Router>
   );

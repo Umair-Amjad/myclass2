@@ -28,7 +28,7 @@ ChartJS.register(
   Legend
 );
 
-const AdminDashboard = () => {
+const PlatformOwnerDashboard = () => {
   const dispatch = useDispatch();
   const { metrics, loading, error } = useSelector((state) => state.dashboard);
   const [isOpen, setIsOpen] = useState(false);
@@ -720,4 +720,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default PlatformOwnerDashboard;
