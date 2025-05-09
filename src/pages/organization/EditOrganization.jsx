@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
+import { useOutletContext } from "react-router-dom";
+
 
 const EditOrganization = () => {
+  const { toggleSidebar } = useOutletContext();
   const { id } = useParams(); // Get the organization ID from the URL
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
   const [organization, setOrganization] = useState({
     name: "",
     type: "",
@@ -20,7 +20,7 @@ const EditOrganization = () => {
   });
   const [error, setError] = useState("");
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  
 
   // Fetch the organization data from localStorage based on ID
   useEffect(() => {
@@ -72,19 +72,14 @@ const EditOrganization = () => {
     localStorage.setItem("organizations", JSON.stringify(updatedOrganizations));
 
     // Redirect back to the Organization Management page
-    navigate("/organizations");
+    navigate("/platform/organizations");
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
+      {/* Remove md:ml-64 to the below class  */}
+      <div className="flex-1 flex flex-col">
         {/* Edit Organization Form */}
         <main className="p-24 flex-1">
           <div className="max-w-6xl  mx-auto">
@@ -138,9 +133,10 @@ const EditOrganization = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 >
-                  <option value="">Select Type</option>
+                  {/* <option value="">Select Type</option> */}
                   <option value="college">College</option>
                   <option value="school">School</option>
+                  <option value="university">University</option>
                 </select>
               </div>
 
@@ -278,7 +274,7 @@ const EditOrganization = () => {
                   <option value="">Select Status</option>
                   <option value="Active">Active</option>
                   <option value="Pending">Pending</option>
-                  <option value="Inactive">Inactive</option>
+                  <option value="Inactive">Suspend</option>
                 </select>
               </div>
 
@@ -292,7 +288,7 @@ const EditOrganization = () => {
                 </button>
                 <button
                   type="button"
-                  onClick={() => navigate("/organizations")}
+                  onClick={() => navigate("/platform/organizations")}
                   className="px-4 py-2 border border-gray-300 text-gray-600 rounded-md hover:bg-gray-100 transition-colors"
                 >
                   Cancel

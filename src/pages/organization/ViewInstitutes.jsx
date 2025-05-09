@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
+import { useOutletContext } from "react-router-dom";
+
 
 const ViewInstitutes = () => {
+  const { toggleSidebar } = useOutletContext();
   const { id } = useParams(); // Get organization ID from URL
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
   const [organization, setOrganization] = useState(null);
   const [institutes, setInstitutes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("");
   const [filterType, setFilterType] = useState("");
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  
 
   useEffect(() => {
     // Fetch organization data from localStorage
@@ -55,21 +55,17 @@ const ViewInstitutes = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-gray-100 to-indigo-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
+    <div className="min-h-screen bg-gradient-to-br  from-blue-50 via-gray-100 to-indigo-50 flex">
       {/* Main Content */}
       <div
         className={`flex-1 flex flex-col transition-all duration-300 ${
           isOpen ? "md:ml-64" : "md:ml-16"
         }`}
       >
-        {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+       
 
         {/* Institutes Content */}
-        <main className="py-24 px-0 max-w-6xl ml-64">
+        <main className="py-24 px-0 max-w-6xl">
           {/* Title */}
           <div className="flex items-center mb-6">
             <h1 className="text-3xl font-extrabold text-gray-800">
@@ -124,7 +120,7 @@ const ViewInstitutes = () => {
               </select>
             </div>
             <Link
-              to={`/organizations/${id}/institutes/add`}
+              to={`/platform/organizations/${id}/institutes/add`}
               className="mt-3 sm:mt-0 px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105"
             >
               Add Institute
@@ -203,7 +199,7 @@ const ViewInstitutes = () => {
                           No institutes found for this organization
                         </p>
                         <Link
-                          to={`/organizations/${id}/institutes/add`}
+                          to={`/platform/organizations/${id}/institutes/add`}
                           className="mt-4 inline-block px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105"
                         >
                           ADD FIRST INSTITUTE
@@ -219,7 +215,7 @@ const ViewInstitutes = () => {
           {/* Back Button */}
           <div className="mt-10 flex justify-start">
             <Link
-              to={`/organizations/${id}`}
+              to={`/platform/organizations/${id}`}
               className="flex items-center px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105 mr-10"
             >
               <svg

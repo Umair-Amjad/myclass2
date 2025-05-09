@@ -1,16 +1,22 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NotFound from "./components/NotFound";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// Lazy load components
-const AdminDashboard = lazy(() => import("./pages/dashboard/AdminDashboard"));
+// Layout
+import SidebarLayout from "./components/layout/SidebarLayout";
+
+// Lazy load major pages
+const PlatformOwnerDashboard = lazy(() => import("./pages/dashboard/PlatformOwnerDashboard"));
 const OrganizationManagement = lazy(() => import("./pages/organization/OrganizationManagement"));
 const OrganizationAdd = lazy(() => import("./pages/organization/OrganizationAdd"));
 const OrganizationDetails = lazy(() => import("./pages/organization/OrganizationDetails"));
+const EditOrganization = lazy(() => import("./pages/organization/EditOrganization"));
 const ViewInstitutes = lazy(() => import("./pages/organization/ViewInstitutes"));
 const InstituteDashboard = lazy(() => import("./pages/dashboard/InstituteDashboard"));
+const AddInstitute = lazy(() => import("./pages/organization/AddInstitute"));
+const Platforminsite = lazy(() => import("./pages/organization/Platforminsite"));
+const Settings = lazy(() => import("./pages/Setting"));
 
-// Loading component
+// Fallback loader
 const LoadingFallback = () => (
   <div className="h-screen w-full flex items-center justify-center bg-gray-50">
     <div className="text-center">
@@ -20,7 +26,7 @@ const LoadingFallback = () => (
   </div>
 );
 
-// Error boundary for lazy loaded components
+// Error Boundary
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -53,28 +59,35 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+// Router setup
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <SidebarLayout />,
+    children: [
+      { path: "", element: <PlatformOwnerDashboard /> },
+      { path: "platform/organizations", element: <OrganizationManagement /> },
+      { path: "platform/organizations/add", element: <OrganizationAdd /> },
+      { path: "platform/organizations/:id", element: <OrganizationDetails /> },
+      { path: "platform/organizations/:id/edit", element: <EditOrganization /> },
+      { path: "platform/institutes/add", element: <AddInstitute /> },
+      { path: "platform/organizations/:id/institutes", element: <ViewInstitutes /> },
+      { path: "platform-insights", element: <Platforminsite /> },
+      { path: "institute/dashboard", element: <InstituteDashboard /> },
+      { path: "settings", element: <Settings /> },
+      { path: "*", element: <div className="p-4">404 - Page Not Found</div> },
+    ],
+  },
+]);
+
+// Final App
 const App = () => {
   return (
-    <Router>
-      <ErrorBoundary>
-        <Suspense fallback={<LoadingFallback />}>
-          <Routes>
-            <Route path="/dashboard" element={<AdminDashboard />} />
-            <Route path="/organizations" element={<OrganizationManagement />} />
-            <Route path="/organizations/add" element={<OrganizationAdd />} />
-            <Route path="/organizations/:id" element={<OrganizationDetails />} />
-            <Route path="/institute/dashboard" element={<InstituteDashboard />} />
-            <Route
-              path="/organizations/:id/institutes"
-              element={<ViewInstitutes />}
-            />
-            
-            <Route path="/" element={<AdminDashboard />} />
-            <Route path="*" element={<NotFound/>} />
-          </Routes>
-        </Suspense>
-      </ErrorBoundary>
-    </Router>
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingFallback />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 

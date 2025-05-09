@@ -2,9 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
-
+import { useOutletContext } from "react-router-dom";
 // Yup validation schema
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -20,13 +18,13 @@ const validationSchema = Yup.object({
 
 const OrganizationAdd = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const { toggleSidebar } = useOutletContext();
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  
 
   const initialValues = {
     name: "",
-    type: "School",
+    type: "Select Type",
     email: "",
     description: "",
     phone: "",
@@ -61,19 +59,13 @@ const OrganizationAdd = () => {
 
     console.log("Form values:", values);
     setSubmitting(false);
-    navigate("/organizations");
+    navigate("/platform/organizations");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-gray-100 to-blue-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
+      <div className="flex-1 flex flex-col">
         {/* Form Content */}
         <main className="p-24 flex-1">
           <h1 className="text-4xl font-extrabold text-gray-900 mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500 animate-fade-in">
@@ -126,12 +118,10 @@ const OrganizationAdd = () => {
                         name="type"
                         className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md cursor-pointer appearance-none bg-no-repeat bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22%23666666%22%20stroke-width%3D%222%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5rem_1.5rem] bg-[right_0.5rem_center]"
                       >
+                        <option value="">Select Type</option>
                         <option value="School">School</option>
                         <option value="College">College</option>
-                        <option value="Online">Online</option>
-                        <option value="Higher Education">
-                          Higher Education
-                        </option>
+                        <option value="University">University</option>
                       </Field>
                     </div>
                     {/* Email */}
@@ -392,7 +382,7 @@ const OrganizationAdd = () => {
                       >
                         <option value="Active">Active</option>
                         <option value="Pending">Pending</option>
-                        <option value="Inactive">Inactive</option>
+                        <option value="Inactive">Suspend</option>
                       </Field>
                     </div>
                     {/* Logo URL */}
@@ -416,7 +406,7 @@ const OrganizationAdd = () => {
                 {/* Buttons */}
                 <div className="flex justify-end space-x-4">
                   <Link
-                    to="/organizations"
+                    to="/platform/organizations"
                     className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg shadow-md hover:bg-gray-300 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
                   >
                     Cancel

@@ -7,8 +7,7 @@ import {
   selectError,
   selectUserGrowth 
 } from '../../store/slices/dashboardSlice';
-import AdminSidebar from '../../components/layout/AdminSidebar';
-import DashboardHeader from '../../components/layout/DashboardHeader';
+// import AdminSidebar from '../../components/layout/AdminSidebar';
 import { Link, useNavigate } from 'react-router-dom';
 import { Line, Doughnut } from 'react-chartjs-2';
 import {
@@ -35,7 +34,7 @@ ChartJS.register(
   Legend
 );
 
-const AdminDashboard = () => {
+const PlatformOwnerDashboard = () => {
   const dispatch = useDispatch();
   const metrics = useSelector(selectMetrics);
   const loading = useSelector(selectLoading);
@@ -45,6 +44,8 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   const toggleSidebar = useCallback(() => setIsOpen(prev => !prev), []);
+
+  // const { toggleSidebar } = useOutletContext();
 
   useEffect(() => {
     dispatch(fetchDashboardMetrics());
@@ -58,8 +59,9 @@ const AdminDashboard = () => {
   // Handle Organization button click (placeholder)
   const handleOrganization = useCallback(() => {
     console.log('Organization button clicked - functionality to be implemented');
-    navigate("/organizations");
+    navigate("platform/organizations");
   }, []);
+ 
 
   // Get user growth data from memoized selector
   const userGrowthChartData = useSelector(state => selectUserGrowth(state, growthPeriod));
@@ -181,17 +183,11 @@ const AdminDashboard = () => {
   // Loading state
   if (loading && !metrics?.totalUsers) {
     return (
-      <div className="min-h-screen bg-gray-50 flex">
-        <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-        <div className="flex-1 flex flex-col md:ml-64">
-          <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
-          <div className="p-6 flex-1 flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-              <p className="mt-4 text-gray-600">Loading dashboard data...</p>
-            </div>
-          </div>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading dashboard data...</p>
+      </div>
       </div>
     );
   }
@@ -200,9 +196,9 @@ const AdminDashboard = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 flex">
-        <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+        {/* <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} /> */}
         <div className="flex-1 flex flex-col md:ml-64">
-          <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
+          {/* <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} /> */}
           <div className="p-6 flex-1">
             <div className="bg-red-50 p-4 rounded-md border border-red-200 mb-6">
               <h2 className="text-red-700 text-lg font-semibold">Error Loading Dashboard</h2>
@@ -222,20 +218,15 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
+      <div className="flex-1 flex flex-col ">
         {/* Dashboard Content */}
         <main className="p-24 flex-1">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500">
-              Admin Dashboard
+              PlatformOwner Dashboard
             </h1>
+
             <div className="flex space-x-3">
               <button
                 onClick={handleRefresh}
@@ -466,7 +457,7 @@ const AdminDashboard = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Link
-                to="/organizations/add"
+                to="/platform/organizations/add"
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-between"
               >
                 <div className="flex items-center space-x-3">
@@ -764,4 +755,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default PlatformOwnerDashboard;
