@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
+import { useOutletContext } from "react-router-dom";
 
 const OrganizationDetails = () => {
+  const { toggleSidebar } = useOutletContext();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
   const [organization, setOrganization] = useState(null);
-
-  const toggleSidebar = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     const organizations =
@@ -18,7 +15,7 @@ const OrganizationDetails = () => {
     if (org) {
       setOrganization(org);
     } else {
-      navigate("/organizations");
+      navigate("/platform/organizations");
     }
   }, [id, navigate]);
 
@@ -29,7 +26,7 @@ const OrganizationDetails = () => {
       (org) => org.id !== parseInt(id)
     );
     localStorage.setItem("organizations", JSON.stringify(updatedOrganizations));
-    navigate("/organizations");
+    navigate("/platform/organizations");
   };
 
   if (!organization) {
@@ -42,68 +39,79 @@ const OrganizationDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-gray-100 to-indigo-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
-      <div
-        className={`flex-1 flex flex-col transition-all duration-300 ${
-          isOpen ? "md:ml-64" : "md:ml-16"
-        }`}
-      >
-        <div className="ml-48">
-          {/* Header */}
-          <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
-        </div>
+      <div className="flex-1 flex flex-col transition-all duration-300">
         {/* Organization Details Content */}
-        <main className="p-8 flex-1 max-w-6xl mx-auto">
-          {/* Heading */}
-          <h1 className="text-3xl font-extrabold text-gray-800 mb-6 ml-10">
-            Organization Details
-          </h1>
-
-          {/* buttons */}
-          <div className="flex space-x-4 justify-end -mt-10 sm:-mt-12 md:-mt-14">
-            <Link
-              to={`/organizations/${id}/edit`}
-              className="flex items-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+        <main className="p-24 flex-1 max-w-6xl mx-auto">
+          <div className="flex justify-between items-center mb-6 ml-10">
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={toggleSidebar}
+                className="md:hidden p-2 focus:outline-none text-gray-800"
+                title="Toggle Sidebar"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                />
-              </svg>
-              Edit
-            </Link>
-            <button
-              onClick={handleDelete}
-              className="flex items-center px-5 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition-all duration-200 transform hover:scale-105"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+              <h1 className="text-3xl font-extrabold text-gray-800">
+                Organization Details
+              </h1>
+            </div>
+            {/* Buttons */}
+            <div className="flex space-x-4">
+              <Link
+                to={`/platform/organizations/${id}/edit`}
+                className="flex items-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4m-4 0h4m-7 4h14"
-                />
-              </svg>
-              Delete
-            </button>
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  />
+                </svg>
+                Edit
+              </Link>
+              <button
+                onClick={handleDelete}
+                className="flex items-center px-5 py-2 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition-all duration-200 transform hover:scale-105"
+              >
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4m-4 0h4m-7 4h14"
+                  />
+                </svg>
+                Delete
+              </button>
+            </div>
           </div>
 
           {/* Hero Section */}
@@ -133,29 +141,6 @@ const OrganizationDetails = () => {
               </div>
             </div>
           </div>
-          {/* Navigation and Actions */}
-          {/* <div className="flex justify-between items-center mb-10">
-            <Link
-              to="/organizations"
-              className="flex items-center text-indigo-600 hover:text-indigo-800 font-semibold transition-colors duration-200"
-            >
-              <svg
-                className="w-6 h-6 mr-2 transform transition-transform duration-200 hover:-translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              Back to Organizations
-            </Link> 
-          </div> */}
 
           {/* Organization Info and Contact */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12 ml-10">
@@ -341,11 +326,11 @@ const OrganizationDetails = () => {
                 Statistics
               </h3>
               <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-indigo-50 rounded-lg transition-transform duration-200 hover:scale-105">
+                <div className="text-center p-2 bg-indigo-50 rounded-lg transition-transform duration-200 hover:scale-105">
                   <p className="text-2xl font-extrabold text-indigo-700">0</p>
                   <p className="text-sm text-gray-600 mt-1">Total Institutes</p>
                   <Link
-                    to={`/organizations/${id}/institutes`}
+                    to={`/platform/organizations/${id}/institutes`}
                     className="text-indigo-600 text-sm font-semibold hover:underline mt-2 inline-block transform transition-transform duration-200 hover:scale-110"
                   >
                     View Institutes
@@ -373,7 +358,7 @@ const OrganizationDetails = () => {
                   className="w-6 h-6 mr-2 text-indigo-600"
                   fill="none"
                   stroke="currentColor"
-                  viewBox="0 0 24 회24"
+                  viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -422,7 +407,7 @@ const OrganizationDetails = () => {
           {/* Bottom Back to Organizations Button */}
           <div className="mt-10 flex justify-start">
             <Link
-              to="/organizations"
+              to="/platform/organizations"
               className="flex items-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105 ml-10"
             >
               <svg

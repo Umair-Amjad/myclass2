@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-import DashboardHeader from "../../components/layout/DashboardHeader";
+import { useOutletContext } from "react-router-dom";
 
 const OrganizationManagement = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { toggleSidebar } = useOutletContext();
   const [dropdownOpen, setDropdownOpen] = useState({});
   const buttonRefs = useRef({});
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,7 +18,7 @@ const OrganizationManagement = () => {
     totalUsers: 0,
   });
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  
 
   // Fetch organizations from localStorage and calculate metrics
   useEffect(() => {
@@ -165,16 +164,10 @@ const OrganizationManagement = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
+      <div className="flex-1 flex flex-col ">
         {/* Organization Management Content */}
-        <main className="p-6 flex-1">
+        <main className="p-24 flex-1">
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-800">
@@ -185,7 +178,7 @@ const OrganizationManagement = () => {
               </p>
             </div>
             <Link
-              to="/organizations/add"
+              to="/platform/organizations/add"
               className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               <svg
@@ -385,7 +378,7 @@ const OrganizationManagement = () => {
               Refresh
             </button>
             <Link
-              to="/organizations/add"
+              to="/platform/organizations/add"
               className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               <svg
@@ -476,7 +469,7 @@ const OrganizationManagement = () => {
                         {dropdownOpen[String(org.id)] && (
                           <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                             <Link
-                              to={`/organizations/${org.id}`}
+                              to={`/platform/organizations/${org.id}`}
                               className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
                               onClick={() => toggleDropdown(org.id)}
                             >
@@ -503,7 +496,7 @@ const OrganizationManagement = () => {
                               View Details
                             </Link>
                             <Link
-                              to={`/organizations/${org.id}/edit`}
+                              to={`/platform/organizations/${org.id}/edit`}
                               className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
                               onClick={() => toggleDropdown(org.id)}
                             >
@@ -524,7 +517,7 @@ const OrganizationManagement = () => {
                               Edit
                             </Link>
                             <Link
-                              to={`/organizations/${org.id}/institutes`}
+                              to={`/platform/organizations/${org.id}/institutes`}
                               className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
                               onClick={() => toggleDropdown(org.id)}
                             >

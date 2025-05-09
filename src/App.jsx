@@ -1,37 +1,93 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { store } from "./store";
-import AdminDashboard from "./pages/dashboard/AdminDashboard";
-import OrganizationManagement from "./pages/organization/OrganizationManagement";
-import OrganizationAdd from "./pages/organization/OrganizationAdd";
-import OrganizationDetails from "./pages/organization/OrganizationDetails";
-import ViewInstitutes from "./pages/organization/ViewInstitutes";
-import InstituteDashboard from "./pages/dashboard/InstituteDashboard"; // Adjust the path as needed
+import React, { lazy, Suspense } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+// Layout
+import SidebarLayout from "./components/layout/SidebarLayout";
+
+// Lazy load major pages
+const PlatformOwnerDashboard = lazy(() => import("./pages/dashboard/PlatformOwnerDashboard"));
+const OrganizationManagement = lazy(() => import("./pages/organization/OrganizationManagement"));
+const OrganizationAdd = lazy(() => import("./pages/organization/OrganizationAdd"));
+const OrganizationDetails = lazy(() => import("./pages/organization/OrganizationDetails"));
+const EditOrganization = lazy(() => import("./pages/organization/EditOrganization"));
+const ViewInstitutes = lazy(() => import("./pages/organization/ViewInstitutes"));
+const InstituteDashboard = lazy(() => import("./pages/dashboard/InstituteDashboard"));
+const AddInstitute = lazy(() => import("./pages/organization/AddInstitute"));
+const Platforminsite = lazy(() => import("./pages/organization/Platforminsite"));
+const Settings = lazy(() => import("./pages/Setting"));
+
+// Fallback loader
+const LoadingFallback = () => (
+  <div className="h-screen w-full flex items-center justify-center bg-gray-50">
+    <div className="text-center">
+      <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+      <p className="mt-4 text-gray-600">Loading...</p>
+    </div>
+  </div>
+);
+
+// Error Boundary
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="h-screen w-full flex items-center justify-center bg-gray-50">
+          <div className="text-center max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+            <h2 className="text-xl font-bold text-red-600 mb-4">Something went wrong</h2>
+            <p className="text-gray-600 mb-4">We're sorry, but there was an error loading this page.</p>
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+            >
+              Reload Page
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Router setup
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <SidebarLayout />,
+    children: [
+      { path: "", element: <PlatformOwnerDashboard /> },
+      { path: "platform/organizations", element: <OrganizationManagement /> },
+      { path: "platform/organizations/add", element: <OrganizationAdd /> },
+      { path: "platform/organizations/:id", element: <OrganizationDetails /> },
+      { path: "platform/organizations/:id/edit", element: <EditOrganization /> },
+      { path: "platform/institutes/add", element: <AddInstitute /> },
+      { path: "platform/organizations/:id/institutes", element: <ViewInstitutes /> },
+      { path: "platform-insights", element: <Platforminsite /> },
+      { path: "institute/dashboard", element: <InstituteDashboard /> },
+      { path: "settings", element: <Settings /> },
+      { path: "*", element: <div className="p-4">404 - Page Not Found</div> },
+    ],
+  },
+]);
+
+// Final App
 const App = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <Routes>
-          <Route path="/dashboard" element={<AdminDashboard />} />
-          <Route path="/organizations" element={<OrganizationManagement />} />
-          <Route path="/organizations/add" element={<OrganizationAdd />} />
-          <Route path="/organizations/:id" element={<OrganizationDetails />} />
-          <Route path="/institute/dashboard" element={<InstituteDashboard />} />
-          <Route
-            path="/organizations/:id/institutes"
-            element={<ViewInstitutes />}
-          />
-          {/* <Route path="/organizations/:id" element={<div>View Organization Details (To Be Implemented)</div>} />
-          <Route path="/organizations/:id/edit" element={<div>Edit Organization (To Be Implemented)</div>} />
-          <Route path="/organizations/:id/institutes" element={<div>View Institutes (To Be Implemented)</div>} />
-          <Route path="/organizations/add" element={<div>Add Organization (To Be Implemented)</div>} /> */}
-          <Route path="/" element={<AdminDashboard />} />
-          <Route path="*" element={<div>404 - Page Not Found</div>} />
-        </Routes>
-      </Router>
-    </Provider>
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingFallback />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 

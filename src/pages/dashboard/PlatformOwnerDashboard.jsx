@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDashboardMetrics } from '../../store/slices/dashboardSlice';
-import AdminSidebar from '../../components/layout/AdminSidebar';
-import DashboardHeader from '../../components/layout/DashboardHeader';
-import { Link } from 'react-router-dom';
+import { 
+  fetchDashboardMetrics, 
+  selectMetrics, 
+  selectLoading, 
+  selectError,
+  selectUserGrowth 
+} from '../../store/slices/dashboardSlice';
+// import AdminSidebar from '../../components/layout/AdminSidebar';
+import { Link, useNavigate } from 'react-router-dom';
 import { Line, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -15,7 +20,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 // Register Chart.js components
 ChartJS.register(
@@ -29,166 +34,199 @@ ChartJS.register(
   Legend
 );
 
-const AdminDashboard = () => {
+const PlatformOwnerDashboard = () => {
   const dispatch = useDispatch();
-  const { metrics, loading, error } = useSelector((state) => state.dashboard);
+  const metrics = useSelector(selectMetrics);
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
   const [isOpen, setIsOpen] = useState(false);
-  const [growthPeriod, setGrowthPeriod] = useState('Monthly');
+  const [growthPeriod, setGrowthPeriod] = useState("Monthly");
+  const navigate = useNavigate();
 
-  const toggleSidebar = () => setIsOpen(!isOpen);
+  const toggleSidebar = useCallback(() => setIsOpen(prev => !prev), []);
+
+  // const { toggleSidebar } = useOutletContext();
 
   useEffect(() => {
     dispatch(fetchDashboardMetrics());
   }, [dispatch]);
 
   // Handle Refresh button click
-  const handleRefresh = () => {
+  const handleRefresh = useCallback(() => {
     dispatch(fetchDashboardMetrics());
-  };
+  }, [dispatch]);
 
   // Handle Organization button click (placeholder)
-  const handleOrganization = () => {
+  const handleOrganization = useCallback(() => {
     console.log('Organization button clicked - functionality to be implemented');
-  };
+    navigate("platform/organizations");
+  }, []);
+ 
 
-  // User Growth Line Chart Data (switch between Monthly and Yearly)
-  const userGrowthData = {
-    labels:
-      growthPeriod === 'Monthly'
-        ? metrics.userGrowthMonthly
-          ? metrics.userGrowthMonthly.map((trend) => trend.month)
-          : []
-        : metrics.userGrowthYearly
-        ? metrics.userGrowthYearly.map((trend) => trend.year)
-        : [],
+  // Get user growth data from memoized selector
+  const userGrowthChartData = useSelector(state => selectUserGrowth(state, growthPeriod));
+
+  // User Growth Line Chart Data - memoized
+  const userGrowthData = useMemo(() => ({
+    labels: userGrowthChartData.labels,
     datasets: [
       {
         label: 'New Users',
-        data:
-          growthPeriod === 'Monthly'
-            ? metrics.userGrowthMonthly
-              ? metrics.userGrowthMonthly.map((trend) => trend.users)
-              : []
-            : metrics.userGrowthYearly
-            ? metrics.userGrowthYearly.map((trend) => trend.users)
-            : [],
+        data: userGrowthChartData.values,
         fill: false,
-        borderColor: 'rgba(34, 197, 94, 0.8)',
+        borderColor: "rgba(34, 197, 94, 0.8)",
         tension: 0.4,
       },
     ],
-  };
+  }), [userGrowthChartData]);
 
-  // User Distribution Doughnut Chart Data
-  const userDistributionData = {
+  // User Distribution Doughnut Chart Data - memoized
+  const userDistributionData = useMemo(() => ({
     labels: ['Teachers', 'Students', 'Admins', 'Others'],
     datasets: [
       {
         data: [
-          metrics.teachers || 0,
-          metrics.students || 0,
-          metrics.admins || 0,
-          metrics.others || 0,
+          metrics?.teachers || 0,
+          metrics?.students || 0,
+          metrics?.admins || 0,
+          metrics?.others || 0,
         ],
         backgroundColor: [
-          'rgba(59, 130, 246, 0.8)',
-          'rgba(255, 99, 132, 0.8)',
-          'rgba(255, 206, 86, 0.8)',
-          'rgba(54, 162, 235, 0.8)',
+          "rgba(59, 130, 246, 0.8)",
+          "rgba(255, 99, 132, 0.8)",
+          "rgba(255, 206, 86, 0.8)",
+          "rgba(54, 162, 235, 0.8)",
         ],
         borderColor: [
-          'rgba(59, 130, 246, 1)',
-          'rgba(255, 99, 132, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(54, 162, 235, 1)',
+          "rgba(59, 130, 246, 1)",
+          "rgba(255, 99, 132, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(54, 162, 235, 1)",
         ],
         borderWidth: 1,
       },
     ],
-  };
+  }), [metrics?.teachers, metrics?.students, metrics?.admins, metrics?.others]);
 
-  const chartOptions = {
+  // Chart options - memoized
+  const chartOptions = useMemo(() => ({
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'bottom',
+        position: "bottom",
         labels: {
-          color: '#1F2937',
+          color: "#1F2937",
         },
       },
       title: {
         display: true,
-        color: '#1F2937',
+        color: "#1F2937",
       },
     },
     scales: {
       y: {
         beginAtZero: true,
         ticks: {
-          color: '#1F2937',
+          color: "#1F2937",
         },
       },
       x: {
         ticks: {
-          color: '#1F2937',
+          color: "#1F2937",
         },
       },
     },
-  };
+  }), []);
 
   // Dummy data for recent organizations (replace with actual data from metrics if available)
-  const recentOrganizations = [
+  const recentOrganizations = useMemo(() => [
     {
       id: 1,
-      name: 'Acme Schools',
-      type: 'K-12',
-      status: 'Active',
+      name: "Acme Schools",
+      type: "K-12",
+      status: "Active",
       users: 245,
       institutes: 3,
     },
     {
       id: 2,
-      name: 'Better Education Group',
-      type: 'Higher Education',
-      status: 'Active',
+      name: "Better Education Group",
+      type: "Higher Education",
+      status: "Active",
       users: 512,
       institutes: 2,
     },
     {
       id: 3,
-      name: 'City College',
-      type: 'College',
-      status: 'Active',
+      name: "City College",
+      type: "College",
+      status: "Active",
       users: 189,
       institutes: 1,
     },
     {
       id: 4,
-      name: 'Digital Learning',
-      type: 'Online',
-      status: 'Pending',
+      name: "Digital Learning",
+      type: "Online",
+      status: "Pending",
       users: 56,
       institutes: 1,
     },
-  ];
+  ], []);
+
+  // Function to handle period change
+  const handlePeriodChange = useCallback((period) => {
+    setGrowthPeriod(period);
+  }, []);
+
+  // Loading state
+  if (loading && !metrics?.totalUsers) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading dashboard data...</p>
+      </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex">
+        {/* <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} /> */}
+        <div className="flex-1 flex flex-col md:ml-64">
+          {/* <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} /> */}
+          <div className="p-6 flex-1">
+            <div className="bg-red-50 p-4 rounded-md border border-red-200 mb-6">
+              <h2 className="text-red-700 text-lg font-semibold">Error Loading Dashboard</h2>
+              <p className="text-red-600">{error}</p>
+              <button 
+                onClick={handleRefresh}
+                className="mt-3 px-4 py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition-colors"
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <AdminSidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
       {/* Main Content */}
-      <div className="flex-1 flex flex-col md:ml-64">
-        {/* Header */}
-        <DashboardHeader isOpen={isOpen} toggleSidebar={toggleSidebar} />
-
+      <div className="flex-1 flex flex-col ">
         {/* Dashboard Content */}
-        <main className="p-6 flex-1">
+        <main className="p-24 flex-1">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500">
-              Admin Dashboard
+              PlatformOwner Dashboard
             </h1>
+
             <div className="flex space-x-3">
               <button
                 onClick={handleRefresh}
@@ -228,20 +266,27 @@ const AdminDashboard = () => {
                     d="M4 6h16M4 10h16M4 14h16M4 18h16"
                   />
                 </svg>
-                Organization
+                Organizations
               </button>
             </div>
           </div>
 
           {error && (
-            <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">{error}</p>
+            <p className="text-red-500 bg-red-100 p-3 rounded-lg mb-4">
+              {error}
+            </p>
           )}
 
           {/* Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div className="bg-gradient-to-br from-blue-500 to-blue-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -252,14 +297,19 @@ const AdminDashboard = () => {
                 <div>
                   <h3 className="text-lg font-medium">Total Users</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? 'Loading...' : metrics.totalUsers || '0'}
+                    {loading ? "Loading..." : metrics.totalUsers || "0"}
                   </p>
                 </div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-green-500 to-green-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -270,14 +320,19 @@ const AdminDashboard = () => {
                 <div>
                   <h3 className="text-lg font-medium">Organizations</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? 'Loading...' : metrics.organizations || '0'}
+                    {loading ? "Loading..." : metrics.organizations || "0"}
                   </p>
                 </div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-purple-500 to-purple-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -288,14 +343,19 @@ const AdminDashboard = () => {
                 <div>
                   <h3 className="text-lg font-medium">Institutes</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? 'Loading...' : metrics.institutes || '0'}
+                    {loading ? "Loading..." : metrics.institutes || "0"}
                   </p>
                 </div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-orange-500 to-orange-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -306,7 +366,7 @@ const AdminDashboard = () => {
                 <div>
                   <h3 className="text-lg font-medium">Admins</h3>
                   <p className="text-3xl font-bold">
-                    {loading ? 'Loading...' : metrics.admins || '0'}
+                    {loading ? "Loading..." : metrics.admins || "0"}
                   </p>
                 </div>
               </div>
@@ -315,25 +375,33 @@ const AdminDashboard = () => {
 
           {/* Analytics Section */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Analytics</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+              Analytics
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* User Growth Line Chart */}
               <div className="bg-white p-6 rounded-xl shadow-lg card-glass h-80">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-medium text-gray-700">User Growth</h3>
+                  <h3 className="text-lg font-medium text-gray-700">
+                    User Growth
+                  </h3>
                   <div className="flex space-x-2">
                     <button
-                      onClick={() => setGrowthPeriod('Monthly')}
+                      onClick={() => handlePeriodChange('Monthly')}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
-                        growthPeriod === 'Monthly' ? 'bg-blue-600' : 'bg-blue-400'
+                        growthPeriod === "Monthly"
+                          ? "bg-blue-600"
+                          : "bg-blue-400"
                       } hover:bg-blue-700 transition-colors`}
                     >
                       Monthly
                     </button>
                     <button
-                      onClick={() => setGrowthPeriod('Yearly')}
+                      onClick={() => handlePeriodChange('Yearly')}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
-                        growthPeriod === 'Yearly' ? 'bg-blue-600' : 'bg-blue-400'
+                        growthPeriod === "Yearly"
+                          ? "bg-blue-600"
+                          : "bg-blue-400"
                       } hover:bg-blue-700 transition-colors`}
                     >
                       Yearly
@@ -359,7 +427,9 @@ const AdminDashboard = () => {
               </div>
               {/* User Distribution Doughnut Chart */}
               <div className="bg-white p-6 rounded-xl shadow-lg card-glass h-80">
-                <h3 className="text-lg font-medium text-gray-700 mb-4">User Distribution</h3>
+                <h3 className="text-lg font-medium text-gray-700 mb-4">
+                  User Distribution
+                </h3>
                 {loading ? (
                   <p className="text-center text-gray-500">Loading...</p>
                 ) : (
@@ -382,10 +452,12 @@ const AdminDashboard = () => {
 
           {/* Quick Actions */}
           <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Quick Actions</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+              Quick Actions
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Link
-                to="/organizations/add"
+                to="/platform/organizations/add"
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-between"
               >
                 <div className="flex items-center space-x-3">
@@ -406,8 +478,12 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">Add Organization</h3>
-                    <p className="text-sm text-gray-500">Create a new organization</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      Add Organization
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Create a new organization
+                    </p>
                   </div>
                 </div>
                 <svg
@@ -447,8 +523,12 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">Manage Admins</h3>
-                    <p className="text-sm text-gray-500">Add or remove super admins</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      Manage Admins
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Add or remove super admins
+                    </p>
                   </div>
                 </div>
                 <svg
@@ -494,8 +574,12 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">Platform Settings</h3>
-                    <p className="text-sm text-gray-500">Configure system settings</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      Platform Settings
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Configure system settings
+                    </p>
                   </div>
                 </div>
                 <svg
@@ -535,8 +619,12 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">View Analytics</h3>
-                    <p className="text-sm text-gray-500">Full platform analytics</p>
+                    <h3 className="text-lg font-semibold text-gray-800">
+                      View Analytics
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      Full platform analytics
+                    </p>
                   </div>
                 </div>
                 <svg
@@ -560,7 +648,9 @@ const AdminDashboard = () => {
           {/* Recent Organizations Table */}
           <div className="bg-white p-6 rounded-xl shadow-lg backdrop-blur-sm bg-opacity-80">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-semibold text-gray-800">Recent Organizations</h2>
+              <h2 className="text-2xl font-semibold text-gray-800">
+                Recent Organizations
+              </h2>
               <Link
                 to="/organizations"
                 className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
@@ -602,7 +692,10 @@ const AdminDashboard = () => {
                   </tr>
                 ) : recentOrganizations && recentOrganizations.length > 0 ? (
                   recentOrganizations.map((org) => (
-                    <tr key={org.id} className="border-b hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={org.id}
+                      className="border-b hover:bg-gray-50 transition-colors"
+                    >
                       <td className="py-3 flex items-center space-x-3">
                         <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold">
                           {org.name.charAt(0).toUpperCase()}
@@ -613,9 +706,9 @@ const AdminDashboard = () => {
                       <td className="py-3">
                         <span
                           className={`px-3 py-1 rounded-full text-sm font-medium ${
-                            org.status === 'Active'
-                              ? 'bg-green-100 text-green-700'
-                              : 'bg-orange-100 text-orange-700'
+                            org.status === "Active"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-orange-100 text-orange-700"
                           }`}
                         >
                           {org.status}
@@ -662,4 +755,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default PlatformOwnerDashboard;
