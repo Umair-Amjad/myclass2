@@ -163,11 +163,11 @@ const OrganizationManagement = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen flex">
       {/* Main Content */}
       <div className="flex-1 flex flex-col ">
         {/* Organization Management Content */}
-        <main className="p-24 flex-1">
+        <main className="py-6 px-4 sm:px-6 md:px-8 flex-1 mt-20">
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-800">
@@ -201,7 +201,7 @@ const OrganizationManagement = () => {
 
           {/* Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-4">
+            <div className="bg-white p-6 rounded-xl shadow-lg flex items-center  space-x-4">
               <div className="bg-blue-500 p-3 rounded-full">
                 <svg
                   className="w-6 h-6 text-white"
@@ -218,7 +218,7 @@ const OrganizationManagement = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-600">
+                <h3 className="text-sm font-medium text-gray-600 ">
                   Total Organizations
                 </h3>
                 <p className="text-2xl font-bold text-gray-800">

@@ -38,14 +38,14 @@ const OrganizationDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-gray-100 to-indigo-50 flex">
+    <div className="min-h-screen flex">
       {/* Main Content */}
       <div className="flex-1 flex flex-col transition-all duration-300">
         {/* Organization Details Content */}
-        <main className="p-24 flex-1 max-w-6xl mx-auto">
+        <main className="py-6 px-4 sm:px-6 md:px-2 flex-1 mt-20 mr-10">
           <div className="flex justify-between items-center mb-6 ml-10">
             <div className="flex items-center space-x-4">
-              <button
+              {/* <button
                 onClick={toggleSidebar}
                 className="md:hidden p-2 focus:outline-none text-gray-800"
                 title="Toggle Sidebar"
@@ -64,7 +64,7 @@ const OrganizationDetails = () => {
                     d="M4 6h16M4 12h16M4 18h16"
                   />
                 </svg>
-              </button>
+              </button> */}
               <h1 className="text-3xl font-extrabold text-gray-800">
                 Organization Details
               </h1>

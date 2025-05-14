@@ -76,12 +76,12 @@ const EditOrganization = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen flex">
       {/* Main Content */}
       {/* Remove md:ml-64 to the below class  */}
       <div className="flex-1 flex flex-col">
         {/* Edit Organization Form */}
-        <main className="p-24 flex-1">
+        <main className="py-6 px-4 sm:px-6 md:px-8 flex-1 mt-20">
           <div className="max-w-6xl  mx-auto">
             <h1 className="text-3xl font-bold text-gray-800 mb-6">
               Edit Organization

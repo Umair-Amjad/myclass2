@@ -63,11 +63,11 @@ const OrganizationAdd = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-gray-100 to-blue-50 flex">
+    <div className="min-h-screen flex">
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Form Content */}
-        <main className="p-24 flex-1">
+        <main className="py-6 px-4 sm:px-6 md:px-8 flex-1 mt-20">
           <h1 className="text-4xl font-extrabold text-gray-900 mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500 animate-fade-in">
             Add New Organization
           </h1>

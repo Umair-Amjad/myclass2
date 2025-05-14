@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import logo from "../../assets/image.jpg";
 
@@ -27,6 +27,12 @@ const SidebarLayout = () => {
   });
 
   const navigate = useNavigate();
+
+  // Refs for dropdowns and toggle buttons
+  const notificationRef = useRef(null);
+  const profileRef = useRef(null);
+  const notificationButtonRef = useRef(null);
+  const profileButtonRef = useRef(null);
 
   // Toggle functions for submenus with mutual exclusivity
   const toggleAdminMenu = () => {
@@ -72,6 +78,38 @@ const SidebarLayout = () => {
   // Calculate unread notifications
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
+  // Click-outside handler for dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close notification dropdown if click is outside notification dropdown and button
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target) &&
+        notificationButtonRef.current &&
+        !notificationButtonRef.current.contains(event.target)
+      ) {
+        setIsNotificationOpen(false);
+      }
+      // Close profile dropdown if click is outside profile dropdown and button
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target) &&
+        profileButtonRef.current &&
+        !profileButtonRef.current.contains(event.target)
+      ) {
+        setIsProfileOpen(false);
+      }
+    };
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="flex min-h-screen">
       {/* Header */}
@@ -104,6 +142,7 @@ const SidebarLayout = () => {
           {/* Notification Button with Dropdown */}
           <div className="relative">
             <button
+              ref={notificationButtonRef}
               onClick={toggleNotificationDropdown}
               className="relative p-2 focus:outline-none"
             >
@@ -128,7 +167,10 @@ const SidebarLayout = () => {
               )}
             </button>
             {isNotificationOpen && (
-              <div className="absolute right-0 mt-2 w-80 bg-white text-gray-800 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto">
+              <div
+                ref={notificationRef}
+                className="absolute right-0 mt-2 w-80 bg-white text-gray-800 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto"
+              >
                 <div className="p-4 border-b flex justify-between items-center">
                   <div className="flex items-center space-x-2">
                     <svg
@@ -203,6 +245,7 @@ const SidebarLayout = () => {
           {/* User Profile Dropdown */}
           <div className="relative">
             <button
+              ref={profileButtonRef}
               onClick={toggleProfileDropdown}
               className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-300 focus:outline-none"
             >
@@ -211,7 +254,10 @@ const SidebarLayout = () => {
               </span>
             </button>
             {isProfileOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white text-gray-800 rounded-lg shadow-xl z-50">
+              <div
+                ref={profileRef}
+                className="absolute right-0 mt-2 w-64 bg-white text-gray-800 rounded-lg shadow-xl z-50"
+              >
                 <div className="p-4 border-b">
                   <div className="flex ml-2 items-center space-x-2">
                     <svg

@@ -55,18 +55,15 @@ const ViewInstitutes = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br  from-blue-50 via-gray-100 to-indigo-50 flex">
+    <div className="min-h-screen flex">
       {/* Main Content */}
       <div
-        className={`flex-1 flex flex-col transition-all duration-300 ${
-          isOpen ? "md:ml-64" : "md:ml-16"
-        }`}
+       className="flex-1 flex flex-col transition-all duration-300 md:ml-92"
       >
        
 
         {/* Institutes Content */}
-        <main className="py-24 px-0 max-w-6xl">
-          {/* Title */}
+        <main className="py-6 px-4 sm:px-6 md:px-8 flex-1 mt-20">
           <div className="flex items-center mb-6">
             <h1 className="text-3xl font-extrabold text-gray-800">
               {organization.name} - Institutes
