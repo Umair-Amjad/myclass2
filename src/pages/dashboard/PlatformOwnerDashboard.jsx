@@ -185,7 +185,7 @@ const PlatformOwnerDashboard = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
-        <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+        <div className="w-16 h-16 border-4 border-gray-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
         <p className="mt-4 text-gray-600">Loading dashboard data...</p>
       </div>
       </div>
@@ -223,14 +223,14 @@ const PlatformOwnerDashboard = () => {
         {/* Dashboard Content */}
         <main className="py-6 px-4 sm:px-6 md:px-8 flex-1 mt-20">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500">
+            <h1 className="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-gray-700 to-gray-600">
               PlatformOwner Dashboard
             </h1>
 
             <div className="flex space-x-3">
               <button
                 onClick={handleRefresh}
-                className="flex items-center px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors"
+                className="flex items-center px-4 py-2 border border-gray-600 text-gray-600 rounded-md hover:bg-gray-50 transition-colors"
               >
                 <svg
                   className="w-5 h-5 mr-2"
@@ -250,7 +250,7 @@ const PlatformOwnerDashboard = () => {
               </button>
               <button
                 onClick={handleOrganization}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors"
               >
                 <svg
                   className="w-5 h-5 mr-2"
@@ -279,7 +279,7 @@ const PlatformOwnerDashboard = () => {
 
           {/* Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-blue-500 to-blue-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-gradient-to-br from-gray-700 to-gray-600 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
                 <svg
                   className="w-8 h-8"
@@ -302,7 +302,7 @@ const PlatformOwnerDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-green-500 to-green-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-gradient-to-br from-gray-700 to-gray-600 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
                 <svg
                   className="w-8 h-8"
@@ -325,7 +325,7 @@ const PlatformOwnerDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-purple-500 to-purple-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-gradient-to-br from-gray-700 to-gray-600 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
                 <svg
                   className="w-8 h-8"
@@ -348,7 +348,7 @@ const PlatformOwnerDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-orange-500 to-orange-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-gradient-to-br from-gray-700 to-gray-600 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
                 <svg
                   className="w-8 h-8"
@@ -390,9 +390,9 @@ const PlatformOwnerDashboard = () => {
                       onClick={() => handlePeriodChange('Monthly')}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
                         growthPeriod === "Monthly"
-                          ? "bg-blue-600"
-                          : "bg-blue-400"
-                      } hover:bg-blue-700 transition-colors`}
+                          ? "bg-gray-700"
+                          : "bg-gray-400"
+                      } hover:bg-gray-600 transition-colors`}
                     >
                       Monthly
                     </button>
@@ -400,9 +400,9 @@ const PlatformOwnerDashboard = () => {
                       onClick={() => handlePeriodChange('Yearly')}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
                         growthPeriod === "Yearly"
-                          ? "bg-blue-600"
-                          : "bg-blue-400"
-                      } hover:bg-blue-700 transition-colors`}
+                          ? "bg-gray-700"
+                          : "bg-gray-400"
+                      } hover:bg-gray-600 transition-colors`}
                     >
                       Yearly
                     </button>
@@ -463,7 +463,7 @@ const PlatformOwnerDashboard = () => {
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-blue-100 rounded-full">
                     <svg
-                      className="w-6 h-6 text-blue-600"
+                      className="w-6 h-6 text-gray-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -487,7 +487,7 @@ const PlatformOwnerDashboard = () => {
                   </div>
                 </div>
                 <svg
-                  className="w-5 h-5 text-blue-600"
+                  className="w-5 h-5 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -508,7 +508,7 @@ const PlatformOwnerDashboard = () => {
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-purple-100 rounded-full">
                     <svg
-                      className="w-6 h-6 text-purple-600"
+                      className="w-6 h-6 text-gray-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -532,7 +532,7 @@ const PlatformOwnerDashboard = () => {
                   </div>
                 </div>
                 <svg
-                  className="w-5 h-5 text-blue-600"
+                  className="w-5 h-5 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -553,7 +553,7 @@ const PlatformOwnerDashboard = () => {
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-orange-100 rounded-full">
                     <svg
-                      className="w-6 h-6 text-orange-600"
+                      className="w-6 h-6 text-gray-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -583,7 +583,7 @@ const PlatformOwnerDashboard = () => {
                   </div>
                 </div>
                 <svg
-                  className="w-5 h-5 text-blue-600"
+                  className="w-5 h-5 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -604,7 +604,7 @@ const PlatformOwnerDashboard = () => {
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-green-100 rounded-full">
                     <svg
-                      className="w-6 h-6 text-green-600"
+                      className="w-6 h-6 text-gray-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 elyn24"
@@ -628,7 +628,7 @@ const PlatformOwnerDashboard = () => {
                   </div>
                 </div>
                 <svg
-                  className="w-5 h-5 text-blue-600"
+                  className="w-5 h-5 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -653,7 +653,7 @@ const PlatformOwnerDashboard = () => {
               </h2>
               <Link
                 to="/organizations"
-                className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
               >
                 View All
                 <svg
@@ -707,8 +707,8 @@ const PlatformOwnerDashboard = () => {
                         <span
                           className={`px-3 py-1 rounded-full text-sm font-medium ${
                             org.status === "Active"
-                              ? "bg-green-100 text-green-700"
-                              : "bg-orange-100 text-orange-700"
+                              ? "bg-green-100 text-gray-700"
+                              : "bg-orange-100 text-gray-700"
                           }`}
                         >
                           {org.status}
@@ -719,7 +719,7 @@ const PlatformOwnerDashboard = () => {
                       <td className="py-3">
                         <Link
                           to={`/organizations/${org.id}`}
-                          className="text-blue-600 hover:text-blue-800"
+                          className="text-gray-600 hover:text-gray-800"
                         >
                           <svg
                             className="w-5 h-5"

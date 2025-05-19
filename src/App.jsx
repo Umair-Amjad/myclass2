@@ -104,7 +104,6 @@ const router = createBrowserRouter([
       { path: "platform-insights", element: <Platforminsite /> },
       { path: "institute/dashboard", element: <InstituteDashboard /> },
       { path: "settings", element: <Settings /> },
-      { path: "*", element: <div className="p-4">404 - Page Not Found</div> },
     ],
   },
   {
@@ -118,8 +117,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/forget",
-    element: <ForgetPassword/>
-  }
+    element: <ForgetPassword />,
+  },
+  { path: "*", element: <div className="p-4">404 - Page Not Found</div> },
 ]);
 
 // Final App

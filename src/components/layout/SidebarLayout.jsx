@@ -113,7 +113,7 @@ const SidebarLayout = () => {
   return (
     <div className="flex min-h-screen">
       {/* Header */}
-      <header className="fixed top-0 left-0 w-full bg-blue-800 text-white p-4 flex justify-between items-center shadow-md z-10">
+      <header className="fixed top-0 left-0 w-full bg-gray-800 text-white p-4 flex justify-between items-center shadow-md z-10">
         {/* Hamburger Icon for Mobile */}
         <div className="flex items-center">
           <button
@@ -362,7 +362,7 @@ const SidebarLayout = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 w-72 !bg-gradient-to-b !from-blue-800 !to-blue-600 text-white transform ${
+        className={`fixed inset-y-0 left-0 w-72 !bg-gradient-to-b !from-gray-800 !to-gray-800 text-white transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 ease-in-out z-50 shadow-xl mt-16 md:mt-0`}
       >
@@ -383,7 +383,7 @@ const SidebarLayout = () => {
             to="/"
             className={({ isActive }) =>
               `flex items-center space-x-3 py-3 px-4 rounded-lg ${
-                isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
+                isActive ? "bg-gray-700" : "hover:bg-gray-600"
               } transition-colors duration-200`
             }
             onClick={() => toggleSidebar()}
@@ -409,7 +409,7 @@ const SidebarLayout = () => {
           <div>
             <button
               onClick={toggleAdminMenu}
-              className="flex items-center justify-between w-full py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+              className="flex items-center justify-between w-full py-3 px-4 rounded-lg hover:bg-gray-600 transition-colors duration-200"
             >
               <div className="flex items-center space-x-3">
                 <svg
@@ -449,7 +449,7 @@ const SidebarLayout = () => {
                   to="/administration/sub-item-1"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 py-2 px-4 rounded-lg ${
-                      isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
+                      isActive ? "bg-gray-700" : "hover:bg-gray-600"
                     } transition-colors duration-200`
                   }
                   onClick={() => toggleSidebar()}
@@ -473,7 +473,7 @@ const SidebarLayout = () => {
                   to="/administration/sub-item-2"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 py-2 px-4 rounded-lg ${
-                      isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
+                      isActive ? "bg-gray-700" : "hover:bg-gray-600"
                     } transition-colors duration-200`
                   }
                   onClick={() => toggleSidebar()}
@@ -501,7 +501,7 @@ const SidebarLayout = () => {
           <div>
             <button
               onClick={togglePlatformMenu}
-              className="flex items-center justify-between w-full py-3 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+              className="flex items-center justify-between w-full py-3 px-4 rounded-lg hover:bg-gray-600 transition-colors duration-200"
             >
               <div className="flex items-center space-x-3 whitespace-nowrap">
                 <svg
@@ -543,7 +543,7 @@ const SidebarLayout = () => {
                   end
                   className={({ isActive }) =>
                     `flex items-center space-x-3 py-2 px-4 rounded-lg ${
-                      isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
+                      isActive ? "bg-gray-700" : "hover:bg-gray-600"
                     } transition-colors duration-200`
                   }
                   onClick={() => toggleSidebar()}
@@ -569,7 +569,7 @@ const SidebarLayout = () => {
                   to="/institute/dashboard"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 py-2 px-4 mt-2 rounded-lg ${
-                      isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
+                      isActive ? "bg-gray-700" : "hover:bg-gray-600"
                     } transition-colors duration-200`
                   }
                   onClick={() => toggleSidebar()}
@@ -595,7 +595,7 @@ const SidebarLayout = () => {
                   to="/super-admins"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 py-2 px-4 mt-2 rounded-lg ${
-                      isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
+                      isActive ? "bg-gray-700" : "hover:bg-gray-600"
                     } transition-colors duration-200`
                   }
                   onClick={() => toggleSidebar()}
@@ -621,7 +621,7 @@ const SidebarLayout = () => {
                   to="/global-users"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 py-2 px-4 mt-2 rounded-lg ${
-                      isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
+                      isActive ? "bg-gray-700" : "hover:bg-gray-600"
                     } transition-colors duration-200`
                   }
                   onClick={() => toggleSidebar()}
@@ -647,7 +647,7 @@ const SidebarLayout = () => {
                   to="/platform-insights"
                   className={({ isActive }) =>
                     `flex items-center space-x-3 py-2 px-4 mt-2 rounded-lg ${
-                      isActive ? "bg-indigo-900" : "hover:bg-indigo-700"
+                      isActive ? "bg-gray-700" : "hover:bg-gray-600"
                     } transition-colors duration-200`
                   }
                   onClick={() => toggleSidebar()}

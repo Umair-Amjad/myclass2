@@ -16,6 +16,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import Card from "../../components/common/Card";
 
 // Register Chart.js components
 ChartJS.register(
@@ -35,7 +36,6 @@ const InstituteDashboard = () => {
   const dispatch = useDispatch();
   const { metrics, loading, error } = useSelector((state) => state.dashboard);
   const [growthPeriod, setGrowthPeriod] = useState("Monthly");
-
 
   useEffect(() => {
     dispatch(fetchDashboardMetrics());
@@ -165,10 +165,8 @@ const InstituteDashboard = () => {
 
   return (
     <div className="min-h-screen flex">
-
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-
         {/* Dashboard Content */}
         <main className="py-6 px-4 sm:px-6 md:px-8 flex-1 mt-20">
           <div className="flex justify-between items-center mb-6">
