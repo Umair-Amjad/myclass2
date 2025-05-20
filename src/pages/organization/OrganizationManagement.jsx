@@ -179,7 +179,7 @@ const OrganizationManagement = () => {
             </div>
             <Link
               to="/platform/organizations/add"
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors"
             >
               <svg
                 className="w-5 h-5 mr-2"
@@ -333,7 +333,7 @@ const OrganizationManagement = () => {
             <input
               type="text"
               placeholder="Search organizations..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -359,7 +359,7 @@ const OrganizationManagement = () => {
             </select>
             <button
               onClick={handleRefresh}
-              className="flex items-center px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors"
+              className="flex items-center px-4 py-2 border border-gray-600 text-gray-600 rounded-md hover:bg-gray-50 transition-colors"
             >
               <svg
                 className="w-5 h-5 mr-2"
@@ -379,7 +379,7 @@ const OrganizationManagement = () => {
             </button>
             <Link
               to="/platform/organizations/add"
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors"
             >
               <svg
                 className="w-5 h-5 mr-2"

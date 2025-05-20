@@ -73,7 +73,7 @@ const OrganizationDetails = () => {
             <div className="flex space-x-4">
               <Link
                 to={`/platform/organizations/${id}/edit`}
-                className="flex items-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105"
+                className="flex items-center px-5 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-all duration-200 transform hover:scale-105"
               >
                 <svg
                   className="w-5 h-5 mr-2"
@@ -115,7 +115,7 @@ const OrganizationDetails = () => {
           </div>
 
           {/* Hero Section */}
-          <div className="relative bg-gradient-to-r from-indigo-600 to-blue-500 text-white rounded-2xl shadow-xl p-6 mb-20 mt-6 sm:mt-8 md:mt-10 flex items-center space-x-6 transform hover:scale-[1.01] transition-transform duration-300 ml-4 sm:ml-10 md:ml-10">
+          <div className="relative bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-2xl shadow-xl p-6 mb-20 mt-6 sm:mt-8 md:mt-10 flex items-center space-x-6 transform hover:scale-[1.01] transition-transform duration-300 ml-4 sm:ml-10 md:ml-10">
             <img
               src={organization.logoUrl || "https://via.placeholder.com/80"}
               alt={organization.name}
@@ -148,7 +148,7 @@ const OrganizationDetails = () => {
             <div className="bg-white p-6 rounded-2xl shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                 <svg
-                  className="w-6 h-6 mr-2 text-indigo-600"
+                  className="w-6 h-6 mr-2 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -172,7 +172,7 @@ const OrganizationDetails = () => {
             <div className="bg-white p-6 rounded-2xl shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                 <svg
-                  className="w-6 h-6 mr-2 text-indigo-600"
+                  className="w-6 h-6 mr-2 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -190,7 +190,7 @@ const OrganizationDetails = () => {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <svg
-                    className="w-5 h-5 text-indigo-500"
+                    className="w-5 h-5 text-gray-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -207,7 +207,7 @@ const OrganizationDetails = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <svg
-                    className="w-5 h-5 text-indigo-500"
+                    className="w-5 h-5 text-gray-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -226,7 +226,7 @@ const OrganizationDetails = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <svg
-                    className="w-5 h-5 text-indigo-500"
+                    className="w-5 h-5 text-gray-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -245,7 +245,7 @@ const OrganizationDetails = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <svg
-                    className="w-5 h-5 text-indigo-500"
+                    className="w-5 h-5 text-gray-500"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -283,7 +283,7 @@ const OrganizationDetails = () => {
             <div className="bg-white p-6 rounded-2xl shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                 <svg
-                  className="w-6 h-6 mr-2 text-indigo-600"
+                  className="w-6 h-6 mr-2 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -310,7 +310,7 @@ const OrganizationDetails = () => {
             <div className="bg-white p-6 rounded-2xl shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
               <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
                 <svg
-                  className="w-6 h-6 mr-2 text-indigo-600"
+                  className="w-6 h-6 mr-2 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -327,25 +327,25 @@ const OrganizationDetails = () => {
               </h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center p-2 bg-indigo-50 rounded-lg transition-transform duration-200 hover:scale-105">
-                  <p className="text-2xl font-extrabold text-indigo-700">0</p>
+                  <p className="text-2xl font-extrabold text-gray-700">0</p>
                   <p className="text-sm text-gray-600 mt-1">Total Institutes</p>
                   <Link
                     to={`/platform/organizations/${id}/institutes`}
-                    className="text-indigo-600 text-sm font-semibold hover:underline mt-2 inline-block transform transition-transform duration-200 hover:scale-110"
+                    className="text-gray-600 text-sm font-semibold hover:underline mt-2 inline-block transform transition-transform duration-200 hover:scale-110"
                   >
                     View Institutes
                   </Link>
                 </div>
                 <div className="text-center p-4 bg-indigo-50 rounded-lg transition-transform duration-200 hover:scale-105">
-                  <p className="text-2xl font-extrabold text-indigo-700">0</p>
+                  <p className="text-2xl font-extrabold text-gray-700">0</p>
                   <p className="text-sm text-gray-600 mt-1">Total Students</p>
                 </div>
                 <div className="text-center p-4 bg-indigo-50 rounded-lg transition-transform duration-200 hover:scale-105">
-                  <p className="text-2xl font-extrabold text-indigo-700">0</p>
+                  <p className="text-2xl font-extrabold text-gray-700">0</p>
                   <p className="text-sm text-gray-600 mt-1">Total Staff</p>
                 </div>
                 <div className="text-center p-4 bg-indigo-50 rounded-lg transition-transform duration-200 hover:scale-105">
-                  <p className="text-2xl font-extrabold text-indigo-700">0</p>
+                  <p className="text-2xl font-extrabold text-gray-700">0</p>
                   <p className="text-sm text-gray-600 mt-1">Total Users</p>
                 </div>
               </div>
@@ -355,7 +355,7 @@ const OrganizationDetails = () => {
             <div className="bg-white p-6 rounded-2xl shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                 <svg
-                  className="w-6 h-6 mr-2 text-indigo-600"
+                  className="w-6 h-6 mr-2 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -379,7 +379,7 @@ const OrganizationDetails = () => {
             <div className="bg-white p-6 rounded-2xl shadow-lg transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                 <svg
-                  className="w-6 h-6 mr-2 text-indigo-600"
+                  className="w-6 h-6 mr-2 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -408,7 +408,7 @@ const OrganizationDetails = () => {
           <div className="mt-10 flex justify-start">
             <Link
               to="/platform/organizations"
-              className="flex items-center px-5 py-2 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-200 transform hover:scale-105 ml-10"
+              className="flex items-center px-5 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-all duration-200 transform hover:scale-105 ml-10"
             >
               <svg
                 className="w-6 h-6 mr-2 transform transition-transform duration-200 hover:-translate-x-1"

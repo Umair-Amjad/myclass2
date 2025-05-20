@@ -170,13 +170,13 @@ const InstituteDashboard = () => {
         {/* Dashboard Content */}
         <main className="py-6 px-4 sm:px-6 md:px-8 flex-1 mt-20">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500">
+            <h1 className="text-4xl font-bold text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-gray-700 to-gray-600">
               Institute Dashboard
             </h1>
             <div className="flex space-x-3">
               <button
                 onClick={handleRefresh}
-                className="flex items-center px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors"
+                className="flex items-center px-4 py-2 border border-gray-600 text-gray-600 rounded-md hover:bg-gray-50 transition-colors"
               >
                 <svg
                   className="w-5 h-5 mr-2"
@@ -196,7 +196,7 @@ const InstituteDashboard = () => {
               </button>
               <button
                 onClick={handleOrganization}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                className="flex items-center px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors"
               >
                 <svg
                   className="w-5 h-5 mr-2"
@@ -225,7 +225,7 @@ const InstituteDashboard = () => {
 
           {/* Metric Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-blue-500 to-blue-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-gradient-to-br from-gray-500 to-gray-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
                 <svg
                   className="w-8 h-8"
@@ -248,7 +248,7 @@ const InstituteDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-green-500 to-green-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-gradient-to-br from-gray-500 to-gray-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
                 <svg
                   className="w-8 h-8"
@@ -271,7 +271,7 @@ const InstituteDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-purple-500 to-purple-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-gradient-to-br from-gray-500 to-gray-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
                 <svg
                   className="w-8 h-8"
@@ -294,7 +294,7 @@ const InstituteDashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-orange-500 to-orange-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+            <div className="bg-gradient-to-br from-gray-500 to-gray-700 text-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
               <div className="flex items-center space-x-4">
                 <svg
                   className="w-8 h-8"
@@ -381,9 +381,9 @@ const InstituteDashboard = () => {
                       onClick={() => setGrowthPeriod("Monthly")}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
                         growthPeriod === "Monthly"
-                          ? "bg-blue-600"
-                          : "bg-blue-400"
-                      } hover:bg-blue-700 transition-colors`}
+                          ? "bg-gray-600"
+                          : "bg-gray-400"
+                      } hover:bg-gray-700 transition-colors`}
                     >
                       Monthly
                     </button>
@@ -391,9 +391,9 @@ const InstituteDashboard = () => {
                       onClick={() => setGrowthPeriod("Yearly")}
                       className={`px-3 py-1 rounded-full text-sm font-medium text-white ${
                         growthPeriod === "Yearly"
-                          ? "bg-blue-600"
-                          : "bg-blue-400"
-                      } hover:bg-blue-700 transition-colors`}
+                          ? "bg-gray-600"
+                          : "bg-gray-400"
+                      } hover:bg-gray-700 transition-colors`}
                     >
                       Yearly
                     </button>
@@ -431,9 +431,9 @@ const InstituteDashboard = () => {
                 className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center justify-between"
               >
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-100 rounded-full">
+                  <div className="p-2 bg-gray-100 rounded-full">
                     <svg
-                      className="w-6 h-6 text-blue-600"
+                      className="w-6 h-6 text-gray-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -457,7 +457,7 @@ const InstituteDashboard = () => {
                   </div>
                 </div>
                 <svg
-                  className="w-5 h-5 text-blue-600"
+                  className="w-5 h-5 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -478,7 +478,7 @@ const InstituteDashboard = () => {
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-purple-100 rounded-full">
                     <svg
-                      className="w-6 h-6 text-purple-600"
+                      className="w-6 h-6 text-gray-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -502,7 +502,7 @@ const InstituteDashboard = () => {
                   </div>
                 </div>
                 <svg
-                  className="w-5 h-5 text-blue-600"
+                  className="w-5 h-5 text-gray-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -527,7 +527,7 @@ const InstituteDashboard = () => {
               </h2>
               <Link
                 to="/institutes"
-                className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
               >
                 View All
                 <svg
@@ -593,7 +593,7 @@ const InstituteDashboard = () => {
                       <td className="py-3">
                         <Link
                           to={`/institutes/${institute.id}`}
-                          className="text-blue-600 hover:text-blue-800"
+                          className="text-gray-600 hover:text-gray-800"
                         >
                           <svg
                             className="w-5 h-5"

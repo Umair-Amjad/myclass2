@@ -79,7 +79,7 @@ const ViewInstitutes = () => {
                   placeholder="Search by name"
                   value={searchQuery}
                   onChange={handleSearch}
-                  className="w-full sm:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full sm:w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
                 />
                 <svg
                   className="w-5 h-5 text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2"
@@ -98,7 +98,7 @@ const ViewInstitutes = () => {
               <select
                 value={sortBy}
                 onChange={handleSort}
-                className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-gray-500"
               >
                 <option value="">Sort by</option>
                 <option value="name">Name</option>
@@ -109,7 +109,7 @@ const ViewInstitutes = () => {
               <select
                 value={filterType}
                 onChange={handleFilterType}
-                className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-gray-500"
               >
                 <option value="">All Types</option>
                 <option value="college">College</option>
@@ -118,7 +118,7 @@ const ViewInstitutes = () => {
             </div>
             <Link
               to={`/platform/organizations/${id}/institutes/add`}
-              className="mt-3 sm:mt-0 px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105"
+              className="mt-3 sm:mt-0 px-5 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-all duration-200 transform hover:scale-105"
             >
               Add Institute
             </Link>
@@ -167,7 +167,7 @@ const ViewInstitutes = () => {
                           {institute.status}
                         </td>
                         <td className="px-6 py-4">
-                          <button className="text-indigo-600 hover:text-indigo-800 mr-3">
+                          <button className="text-gray-600 hover:text-gray-800 mr-3">
                             Edit
                           </button>
                           <button className="text-red-500 hover:text-red-700">
@@ -197,7 +197,7 @@ const ViewInstitutes = () => {
                         </p>
                         <Link
                           to={`/platform/organizations/${id}/institutes/add`}
-                          className="mt-4 inline-block px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105"
+                          className="mt-4 inline-block px-5 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-all duration-200 transform hover:scale-105"
                         >
                           ADD FIRST INSTITUTE
                         </Link>
@@ -213,7 +213,7 @@ const ViewInstitutes = () => {
           <div className="mt-10 flex justify-start">
             <Link
               to={`/platform/organizations/${id}`}
-              className="flex items-center px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-all duration-200 transform hover:scale-105 mr-10"
+              className="flex items-center px-5 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-all duration-200 transform hover:scale-105 mr-10"
             >
               <svg
                 className="w-6 h-6 mr-2 transform transition-transform duration-200 hover:-translate-x-1"

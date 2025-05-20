@@ -111,7 +111,7 @@ const EditOrganization = () => {
                   name="name"
                   value={organization.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   placeholder="Enter organization name"
                   required
                 />
@@ -130,7 +130,7 @@ const EditOrganization = () => {
                   name="type"
                   value={organization.type}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   required
                 >
                   {/* <option value="">Select Type</option> */}
@@ -154,7 +154,7 @@ const EditOrganization = () => {
                   name="email"
                   value={organization.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   placeholder="Enter email"
                   required
                 />
@@ -174,7 +174,7 @@ const EditOrganization = () => {
                   name="address"
                   value={organization.address}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   placeholder="Enter address"
                 />
               </div>
@@ -193,7 +193,7 @@ const EditOrganization = () => {
                   name="city"
                   value={organization.city}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   placeholder="Enter city"
                 />
               </div>
@@ -212,7 +212,7 @@ const EditOrganization = () => {
                   name="state"
                   value={organization.state}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   placeholder="Enter state"
                 />
               </div>
@@ -231,7 +231,7 @@ const EditOrganization = () => {
                   name="postalCode"
                   value={organization.postalCode}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   placeholder="Enter postal code"
                 />
               </div>
@@ -250,7 +250,7 @@ const EditOrganization = () => {
                   name="country"
                   value={organization.country}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   placeholder="Enter country"
                 />
               </div>
@@ -268,7 +268,7 @@ const EditOrganization = () => {
                   name="status"
                   value={organization.status}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
                   required
                 >
                   <option value="">Select Status</option>
@@ -282,7 +282,7 @@ const EditOrganization = () => {
               <div className="flex space-x-3">
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors"
                 >
                   Save Changes
                 </button>

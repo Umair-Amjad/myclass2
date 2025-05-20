@@ -68,7 +68,7 @@ const OrganizationAdd = () => {
       <div className="flex-1 flex flex-col">
         {/* Form Content */}
         <main className="py-6 px-4 sm:px-6 md:px-8 flex-1 mt-20">
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500 animate-fade-in">
+          <h1 className="text-4xl font-extrabold text-gray-900 mb-8 bg-clip-text text-transparent bg-gradient-to-r from-gray-700 to-gray-600 animate-fade-in">
             Add New Organization
           </h1>
 
@@ -96,7 +96,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="name"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter organization name"
                       />
                       <ErrorMessage
@@ -116,7 +116,7 @@ const OrganizationAdd = () => {
                       <Field
                         as="select"
                         name="type"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md cursor-pointer appearance-none bg-no-repeat bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22%23666666%22%20stroke-width%3D%222%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5rem_1.5rem] bg-[right_0.5rem_center]"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md cursor-pointer appearance-none bg-no-repeat bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22%23666666%22%20stroke-width%3D%222%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5rem_1.5rem] bg-[right_0.5rem_center]"
                       >
                         <option value="">Select Type</option>
                         <option value="School">School</option>
@@ -135,7 +135,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="email"
                         name="email"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter email address"
                       />
                       <ErrorMessage
@@ -156,7 +156,7 @@ const OrganizationAdd = () => {
                         as="textarea"
                         name="description"
                         rows="3"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md resize-none"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md resize-none"
                         placeholder="Describe the organization"
                       />
                     </div>
@@ -171,7 +171,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="phone"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter 11-digit phone number"
                       />
                       <ErrorMessage
@@ -191,7 +191,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="website"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter website URL"
                       />
                     </div>
@@ -200,7 +200,7 @@ const OrganizationAdd = () => {
 
                 {/* Location */}
                 <div className="mb-10">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-indigo-200 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-t-lg px-4 py-2">
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-gray-200 bg-gradient-to-r from-gray-50 to-gray-50 rounded-t-lg px-4 py-2">
                     Location
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -215,7 +215,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="address"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter address"
                       />
                       <ErrorMessage
@@ -235,7 +235,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="city"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter city"
                       />
                     </div>
@@ -250,7 +250,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="state"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter state/province"
                       />
                     </div>
@@ -265,7 +265,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="postalCode"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter postal code"
                       />
                     </div>
@@ -280,7 +280,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="country"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter country"
                       />
                     </div>
@@ -289,7 +289,7 @@ const OrganizationAdd = () => {
 
                 {/* Contact Person */}
                 <div className="mb-10">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-indigo-200 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-t-lg px-4 py-2">
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-indigo-200 bg-gradient-to-r from-gray-50 to-gray-50 rounded-t-lg px-4 py-2">
                     Contact Person
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -304,7 +304,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="contactName"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter contact person name"
                       />
                     </div>
@@ -319,7 +319,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="position"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter position"
                       />
                     </div>
@@ -334,7 +334,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="email"
                         name="contactEmail"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter contact email"
                       />
                       <ErrorMessage
@@ -354,7 +354,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="contactPhone"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter contact phone"
                       />
                     </div>
@@ -363,7 +363,7 @@ const OrganizationAdd = () => {
 
                 {/* Status & Settings */}
                 <div className="mb-10">
-                  <h2 className="text-2xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-indigo-200 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-t-lg px-4 py-2">
+                  <h2 className="text-2xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-gray-200 bg-gradient-to-r from-gray-50 to-gray-50 rounded-t-lg px-4 py-2">
                     Status & Settings
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -378,7 +378,7 @@ const OrganizationAdd = () => {
                       <Field
                         as="select"
                         name="status"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md cursor-pointer appearance-none bg-no-repeat bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22%23666666%22%20stroke-width%3D%222%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5rem_1.5rem] bg-[right_0.5rem_center]"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md cursor-pointer appearance-none bg-no-repeat bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke%3D%22%23666666%22%20stroke-width%3D%222%22%3E%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M19%209l-7%207-7-7%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5rem_1.5rem] bg-[right_0.5rem_center]"
                       >
                         <option value="Active">Active</option>
                         <option value="Pending">Pending</option>
@@ -396,7 +396,7 @@ const OrganizationAdd = () => {
                       <Field
                         type="text"
                         name="logoUrl"
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
                         placeholder="Enter logo URL"
                       />
                     </div>
@@ -414,7 +414,7 @@ const OrganizationAdd = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-blue-500 text-white rounded-lg shadow-md hover:from-indigo-700 hover:to-blue-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-6 py-3 bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-lg shadow-md hover:from-gray-700 hover:to-gray-600 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Create Organization
                   </button>
